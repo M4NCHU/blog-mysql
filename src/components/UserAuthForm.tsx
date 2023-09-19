@@ -4,8 +4,8 @@ import { cn } from '@/lib/utils'
 import { signIn } from 'next-auth/react'
 import * as React from 'react'
 import { FC } from 'react'
-import { Toaster } from 'react-hot-toast'
-import toast from 'react-hot-toast/headless'
+import toast, { Toaster } from 'react-hot-toast';
+
 
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
@@ -21,7 +21,6 @@ const UserAuthForm: FC<UserAuthFormProps> = ({ className, ...props }) => {
       await signIn('google')
     } catch (error) {
         toast.error("This didn't work.")
-      
     } finally {
       setIsLoading(false)
     }
@@ -29,8 +28,7 @@ const UserAuthForm: FC<UserAuthFormProps> = ({ className, ...props }) => {
 
   return (
     <div className={cn('flex justify-center', className)} {...props}>
-        <Toaster position="top-center"
-      reverseOrder={false} />
+        
       <button
         type='button'
         className='w-full'
@@ -39,7 +37,9 @@ const UserAuthForm: FC<UserAuthFormProps> = ({ className, ...props }) => {
         {!isLoading ? null : 'loading' }
         Google
       </button>
+      <Toaster  />
     </div>
+    
   )
 }
 
