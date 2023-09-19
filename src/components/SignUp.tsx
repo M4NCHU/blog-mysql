@@ -2,17 +2,17 @@ import { FC } from 'react'
 import UserAuthForm from './UserAuthForm'
 import Link from 'next/link'
 
-interface SignInProps {
+interface SignUpProps {
   
 }
 
-const SignIn: FC<SignInProps> = ({}) => {
+const SignUp: FC<SignUpProps> = ({}) => {
   return (
   <div>
-    <Link href="/sign-up">Register</Link>
+    <Link href="/sign-in">Login</Link>
     <UserAuthForm/>
   </div>
   )
 }
 
-export default SignIn
+export default SignUp
