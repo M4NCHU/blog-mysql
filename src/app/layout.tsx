@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className="min-h-screen bg-slate-50 antialiased">
         <Providers>
           <Navbar/>
-          asdfasdfasdfas
+          
           {/* {authModal} */}
           
 
