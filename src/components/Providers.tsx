@@ -1,5 +1,6 @@
 "use client"
 
+import { SessionProvider } from 'next-auth/react'
 import { FC } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
@@ -12,9 +13,13 @@ const Providers: FC<ProvidersProps> = ({children}) => {
 
 
   return ( 
-  <QueryClientProvider client={queryClient} >
-    {children}
-  </QueryClientProvider>
+  
+    <QueryClientProvider client={queryClient} >
+      <SessionProvider>
+        {children}
+      </SessionProvider>
+    </QueryClientProvider>
+  
   )
 }
 

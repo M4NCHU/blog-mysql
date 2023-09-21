@@ -3,6 +3,8 @@ import '../styles/globals.css'
 import type { Metadata } from 'next'
 import Navbar from '@/components/Navbar'
 import Providers from '@/components/Providers'
+import { SessionProvider } from "next-auth/react"
+import type { AppProps } from "next/app"
 
 
 export const metadata: Metadata = {
@@ -10,16 +12,22 @@ export const metadata: Metadata = {
   description: 'Blog',
 }
 
+interface RootLayoutProps {
+  children: React.ReactNode
+  authModal: React.ReactNode
+}
+
 export default function RootLayout({
   children,
   authModal,
-}: {
-  children: React.ReactNode
-  authModal: React.ReactNode
-}) {
+  
+}: RootLayoutProps) {
+  
   return (
     <html lang="en" className={cn('bg-white ')}>
+      
       <body className="min-h-screen bg-slate-50 antialiased">
+        
         <Providers>
           <Navbar/>
           
@@ -32,6 +40,8 @@ export default function RootLayout({
         </Providers>
         
       </body>
+      
+      
     </html>
   )
 }

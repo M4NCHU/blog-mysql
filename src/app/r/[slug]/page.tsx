@@ -1,4 +1,5 @@
 import MiniCreatePost from '@/components/MiniCreatePost'
+import PostFeed from '@/components/PostFeed'
 import SubscribeLeaveToggle from '@/components/SubsctibeLeaveToggle'
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from '@/config'
 import { getAuthSession } from '@/lib/auth'
@@ -38,6 +39,7 @@ const page: FC<pageProps> = async ({params}) => {
     return (
         <div>
             <MiniCreatePost session={session!}/>
+            <PostFeed initialPosts={subreddit.posts} subredditName={subreddit.name} />
         </div>
     )
 }
