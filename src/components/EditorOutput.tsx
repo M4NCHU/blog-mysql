@@ -1,3 +1,5 @@
+'use client'
+
 import dynamic from 'next/dynamic'
 import { FC } from 'react'
 import CustomImageRenderer from './renderers/CustomCodeRenderer'
@@ -23,7 +25,7 @@ const renderers = {
 
 const EditorOutput: FC<EditorOutputProps> = ({content}) => {
   return (
-    // @ts-expect-error
+    
     <Output
       style={style}
       className='text-sm'
