@@ -24,9 +24,9 @@ export default function RootLayout({
 }: RootLayoutProps) {
   
   return (
-    <html lang="en" className={cn('bg-white ')}>
+    <html lang="en">
       
-      <body className="min-h-screen bg-slate-50 antialiased">
+      <body className="dark text-foreground bg-background  min-h-screen  antialiased">
         
         <Providers>
           <Navbar/>
@@ -34,7 +34,7 @@ export default function RootLayout({
           {/* {authModal} */}
           
 
-          <div className='container max-w-7xl mx-auto h-full pt-12'>
+          <div className='container max-w-7xl mx-auto h-full pt-12 '>
             {children}
           </div>  
         </Providers>

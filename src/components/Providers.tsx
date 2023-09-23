@@ -3,6 +3,7 @@
 import { SessionProvider } from 'next-auth/react'
 import { FC } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import {NextUIProvider} from "@nextui-org/react";
 
 interface ProvidersProps {
   children: React.ReactNode
@@ -16,8 +17,11 @@ const Providers: FC<ProvidersProps> = ({children}) => {
   
     <QueryClientProvider client={queryClient} >
       <SessionProvider>
-        {children}
+        <NextUIProvider>
+          {children}
+        </NextUIProvider>
       </SessionProvider>
+      
     </QueryClientProvider>
   
   )
