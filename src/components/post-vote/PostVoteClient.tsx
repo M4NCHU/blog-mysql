@@ -3,6 +3,7 @@
 import { cn } from '@/lib/utils';
 import { PostVoteRequest } from '@/lib/validators/vote';
 import { usePrevious } from '@mantine/hooks'
+import { Button } from '@nextui-org/react';
 import { VoteType } from '@prisma/client'
 import axios, { AxiosError } from 'axios';
 import { FC, useEffect, useState } from 'react'
@@ -72,21 +73,22 @@ interface PostVoteClientProps {
   
 
   return (
-    <div className='flex flex-col gap-4 sm:gap-0 pr-6 sm:w-20 pb-4 sm:pb-0'>
+    <div className='flex flex-row gap-4 '>
         <Toaster/>
       {/* upvote */}
+      
       <button
         onClick={() => vote('UP')}
         aria-label='upvote'>
         <AiOutlineArrowUp
-          className={cn('h-5 w-5 text-zinc-700', {
-            'text-emerald-500 fill-emerald-500': currentVote === 'UP',
+          className={cn('h-5 w-5 hover:text-emerald-500 hover:bg-default-50 rounded-full', {
+            'fill-emerald-500': currentVote === 'UP',
           })}
         />
       </button>
 
       {/* score */}
-      <p className='text-center py-2 font-medium text-sm text-zinc-900'>
+      <p className='text-center py-2 font-medium text-sm text-foreground'>
         {votesAmt}
       </p>
 
@@ -99,8 +101,8 @@ interface PostVoteClientProps {
         
         aria-label='downvote'>
         <AiOutlineArrowDown
-          className={cn('h-5 w-5 text-zinc-700', {
-            'text-red-500 fill-red-500': currentVote === 'DOWN',
+          className={cn('h-5 w-5 hover:fill-red-500 hover:bg-default-50 rounded-full', {
+            ' fill-red-500': currentVote === 'DOWN',
           })}
         />
       </button>

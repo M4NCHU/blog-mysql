@@ -37,12 +37,43 @@ const page: FC<pageProps> = async ({params}) => {
         },
     })
 
-    if (!subreddit) return notFound()
+    const subredditNames = await db.subreddit.findMany()
+    const names = subredditNames.map(subreddit => subreddit.name);
     
+
+    const subscription = !session?.user ? undefined: await db.subscription.findFirst({
+        where: {
+            subreddit: {
+                name: slug,
+            },
+            user: {
+                id: session.user.id,
+            },
+        },
+    })
+
+    const isSubscribed = !!subscription
+
+    if(!subreddit) return notFound()
+
+    const memberCount = await db.subscription.count({
+        where: {
+            subreddit: {
+                name: slug,
+            },
+        },
+    })
+
+    if (!subreddit) return notFound()
+      
     return (
-        <div>
-            <MiniCreatePost session={session!}/>
-            <PostFeed initialPosts={subreddit.posts} subredditName={subreddit.name} />
+
+        <div className=''>
+            {/* <div className='mt-8 p-2'>
+                
+                <MiniCreatePost session={session!}/>
+            </div> */}
+            <PostFeed initialPosts={subreddit.posts} subredditName={subreddit.name} subreddit={subreddit} subredditNames={names} isSubscribed={isSubscribed} memberCount={memberCount} />
         </div>
     )
 }

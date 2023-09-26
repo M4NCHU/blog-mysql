@@ -14,7 +14,7 @@ const MiniCreatePost: FC<MiniCreatePostProps> = ({session}) => {
     const pathname = usePathname()
     
   return (
-    <div>
+    <div className=''>
         <input readOnly onClick={()=>router.push(pathname + "/submit")} placeholder='Create post' />
         <button onClick={()=>router.push(pathname + "/submit")}>zdjęcie</button>
         <button onClick={()=>router.push(pathname + "/submit")}>załącznik</button>

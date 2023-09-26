@@ -1,6 +1,7 @@
 "use client"
 
 import { SubscribeToSubredditPayload } from '@/lib/validators/subreddit'
+import { Button } from '@nextui-org/react'
 import axios, { Axios, AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
 import { FC, startTransition } from 'react'
@@ -9,7 +10,7 @@ import { useMutation } from 'react-query'
 
 interface SubscribeLeaveToggleProps {
   subredditId: string
-  isSubscribed: boolean
+  isSubscribed: boolean | null
   subredditName: string
 }
 
@@ -72,13 +73,20 @@ const SubscribeLeaveToggle: FC<SubscribeLeaveToggleProps> =  ({subredditId, isSu
 
   return (
     <div>
-        <Toaster/>
-
+        
+        <div >
         {isSubscribed ? (
-            <button onClick={()=>unsubscribeToSubreddit()}>Leave</button>
+            <Button className='w-full' variant='flat' color='danger' onClick={()=>unsubscribeToSubreddit()}>
+                Leave
+            </Button>
+            
         ) : (
-            <button onClick={()=>subscribeToSubreddit()}>Join</button>
+            <Button className='w-full' variant='flat' color='success' onClick={()=>subscribeToSubreddit()}>
+                Join
+            </Button>
+            
         )}
+        </div>
 
     </div>
    

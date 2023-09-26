@@ -1,7 +1,10 @@
 'use client'
 
 
+import { CardTransactions } from '@/components/Home/card-categories'
+import LayoutDefault from '@/components/layout/LayoutDefault'
 import { CreateSubredditPayload } from '@/lib/validators/subreddit'
+import { Button, Input } from '@nextui-org/react'
 
 import axios, { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
@@ -47,43 +50,62 @@ const Page = () => {
   })
 
   return (
-    <div className='container flex items-center h-full max-w-3xl mx-auto'>
-      <Toaster/>
-      <div className='relative bg-white w-full h-fit p-4 rounded-lg space-y-6'>
-        <div className='flex justify-between items-center'>
-          <h1 className='text-xl font-semibold'>Create a Community</h1>
-        </div>
-
-        <hr className='bg-red-500 h-px' />
-
-        <div>
-          <p className='text-lg font-medium'>Name</p>
-          <p className='text-xs pb-2'>
-            Community names including capitalization cannot be changed.
-          </p>
-          <div className='relative'>
-            <p className='absolute text-sm left-0 w-8 inset-y-0 grid place-items-center text-zinc-400'>
-              r/
-            </p>
-            <input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              className='pl-6'
-            />
-          </div>
-        </div>
-
-        <div className='flex justify-end gap-4'>
+    <LayoutDefault>
+      <div className="mt-6 md:p-2  gap-6 flex flex-col w-full">
+      <h3 className='ml-2 mt-2 font-semibold leading-6 text-5xl text-foreground'>
+      Create category
+      </h3>
+      <p className='ml-2 mt-1 truncate text-base text-default-400'>
           
-          <button
-            
-            disabled={input.length === 0}
-            onClick={() => createCommunity()}>
-            Create Community
-          </button>
-        </div>
+      </p>
+
+      <div className='w-full flex flex-col gap-4 justify-end'>
+      <Input
+        isClearable
+        type="text"
+        label="Category name"
+        variant="bordered"
+        placeholder="Enter name of category"
+        onClear={() => console.log("input cleared")}
+        onChange={(e) => setInput(e.target.value)}
+        value={input}
+        
+      />
+        <Button type="submit" form='subreddit-post-form' color="secondary" variant="flat" className='w-full' disabled={input.length === 0}
+             onClick={() => createCommunity()}>
+          create
+        </Button>  
+          
       </div>
-    </div>
+      </div>
+      <div className="mt-4 gap-2 flex flex-col xl:max-w-md w-full">
+            <h3 className="text-xl font-semibold">Section</h3>
+            <div className="flex flex-col justify-center gap-4 flex-wrap md:flex-nowrap md:flex-col sticky top-0">
+                  {/* {subreddit ? <CategoryDetails subreddit={subreddit} isSubscribed={isSubscribed} session={session} memberCount={memberCount && memberCount} /> : null}  */}
+              <CardTransactions />
+            </div>
+        </div>
+    </LayoutDefault>
+    
+    //         <input
+    //           value={input}
+    //           onChange={(e) => setInput(e.target.value)}
+    //           className='pl-6'
+    //         />
+    //       </div>
+    //     </div>
+
+    //     <div className='flex justify-end gap-4'>
+          
+    //       <button
+            
+    //         disabled={input.length === 0}
+    //         onClick={() => createCommunity()}>
+    //         Create Community
+    //       </button>
+    //     </div>
+    //   </div>
+    // </div>
   )
 }
 

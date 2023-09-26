@@ -42,8 +42,11 @@ const CustomFeed: FC<CustomFeedProps> = async ({}) => {
 
     })
 
+    const subredditNames = await db.subreddit.findMany()
+    const names = subredditNames.map(subreddit => subreddit.name);
+
   return (
-    <PostFeed initialPosts={posts}/>
+    <PostFeed initialPosts={posts} subredditNames={names}/>
   )
 }
 

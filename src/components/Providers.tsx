@@ -4,6 +4,7 @@ import { SessionProvider } from 'next-auth/react'
 import { FC } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import {NextUIProvider} from "@nextui-org/react";
+import {ThemeProvider as NextThemesProvider} from "next-themes";
 
 interface ProvidersProps {
   children: React.ReactNode
@@ -18,7 +19,9 @@ const Providers: FC<ProvidersProps> = ({children}) => {
     <QueryClientProvider client={queryClient} >
       <SessionProvider>
         <NextUIProvider>
-          {children}
+          <NextThemesProvider attribute="class" defaultTheme="dark">
+            {children}
+          </NextThemesProvider>
         </NextUIProvider>
       </SessionProvider>
       

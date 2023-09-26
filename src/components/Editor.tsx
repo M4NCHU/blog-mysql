@@ -182,7 +182,7 @@ const Editor: FC<EditorProps> = ({subredditId}) => {
   const {ref: titleRef, ...rest} = register('title')
 
   return (
-    <div className='w-full p-4 bg-zinc-50 rounded-lg border border-zinc-200'>
+    <div className='w-full p-4 bg-default rounded-lg border border-zinc-200'>
       <Toaster/>
     <form
       id='subreddit-post-form'
@@ -197,7 +197,7 @@ const Editor: FC<EditorProps> = ({subredditId}) => {
           }}
           {...rest}
           placeholder='Title'
-          className='w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none'
+          className='w-full resize-none appearance-none overflow-hidden bg-default text-5xl font-bold focus:outline-none'
         />
         <div id='editor' className='min-h-[500px]' />
         <p className='text-sm text-gray-500'>
