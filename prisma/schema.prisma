@@ -41,13 +41,13 @@ model Session {
 }
 
 model User {
-    id                String         @id @default(cuid())
-    name              String?
-    email             String?        @unique
-    emailVerified     DateTime?
-    createdSubreddits Subreddit[]    @relation("CreatedBy")
-    subscriptions     Subscription[]
-    votes             Vote[]
+    id               String         @id @default(cuid())
+    name             String?
+    email            String?        @unique
+    emailVerified    DateTime?
+    createdCategorys Category[]     @relation("CreatedBy")
+    subscriptions    Subscription[]
+    votes            Vote[]
 
     username String? @unique
 
@@ -57,9 +57,11 @@ model User {
     Post        Post[]
     Comment     Comment[]
     CommentVote CommentVote[]
+
+    role MemberRole @default(GUEST)
 }
 
-model Subreddit {
+model Category {
     id        String   @id @default(cuid())
     name      String   @unique
     createdAt DateTime @default(now())
@@ -74,26 +76,26 @@ model Subreddit {
 }
 
 model Subscription {
-    user        User      @relation(fields: [userId], references: [id])
-    userId      String
-    subreddit   Subreddit @relation(fields: [subredditId], references: [id])
-    subredditId String
+    user       User     @relation(fields: [userId], references: [id])
+    userId     String
+    category   Category @relation(fields: [categoryId], references: [id])
+    categoryId String
 
-    @@id([userId, subredditId])
+    @@id([userId, categoryId])
 }
 
 model Post {
-    id          String    @id @default(cuid())
-    title       String
-    content     Json?
-    createdAt   DateTime  @default(now())
-    updatedAt   DateTime  @updatedAt
-    author      User      @relation(fields: [authorId], references: [id])
-    authorId    String
-    subreddit   Subreddit @relation(fields: [subredditId], references: [id])
-    subredditId String
-    comments    Comment[]
-    votes       Vote[]
+    id         String    @id @default(cuid())
+    title      String
+    content    Json?
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime  @updatedAt
+    author     User      @relation(fields: [authorId], references: [id])
+    authorId   String
+    category   Category  @relation(fields: [categoryId], references: [id])
+    categoryId String
+    comments   Comment[]
+    votes      Vote[]
 }
 
 model Comment {
@@ -131,4 +133,10 @@ model CommentVote {
     type      VoteType
 
     @@id([userId, commentId])
+}
+
+enum MemberRole {
+    ADMIN
+    MODERATOR
+    GUEST
 }

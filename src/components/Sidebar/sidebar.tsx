@@ -1,153 +1,233 @@
-"use client"
+"use client";
 
-import React from "react";
-import { Sidebar } from "./sidebar.styles";
 import { Avatar, Button, Tooltip } from "@nextui-org/react";
-import { CompaniesDropdown } from "./companies-dropdown";
-
-import { CollapseItems } from "./collapse-items";
-import { SidebarItem } from "./sidebar-item";
-import { SidebarMenu } from "./sidebar-menu";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { CollapseItems } from "./CollapseMenu";
+import { SidebarItem } from "./SidebarItem";
 
 import { useSidebarContext } from "@/components/layout/Layout-context";
 
-import { useRouter, usePathname  } from "next/navigation";
-import { AiFillAccountBook, AiFillCustomerService, AiFillHome, AiFillPayCircle, AiFillWallet } from "react-icons/ai";
-import { BiNews, BiSolidSun } from "react-icons/bi";
-import { CiDark } from "react-icons/ci";
-import { MdDeveloperMode } from "react-icons/md";
-import { FiMoon, FiSettings } from "react-icons/fi";
-import { useTheme } from "next-themes";
-import { db } from "@/lib/db";
-import { Subreddit } from "@prisma/client";
+import { useSidebar } from "@/context/SidebarContext";
+import { Category } from "@prisma/client";
 import { Session } from "next-auth";
+import { useTheme } from "next-themes";
+import { usePathname, useRouter } from "next/navigation";
+import {
+  AiFillGithub,
+  AiFillHome,
+  AiFillLinkedin,
+  AiFillPayCircle,
+} from "react-icons/ai";
+import { BiHomeAlt, BiNews, BiSolidSun } from "react-icons/bi";
+import { FiMoon, FiSettings } from "react-icons/fi";
+import { MdClose, MdDeveloperMode } from "react-icons/md";
+import { ImBlogger } from "react-icons/im";
+import SidebarSection from "./SidebarSection";
+import CollapseItem from "./CollapseItem";
+import Link from "next/link";
+import SidebarBottomItem from "./SidebarBottomItem";
 
 interface SidebarWrapperProps {
-  subreddit?: Subreddit[] 
-  session: Session | null
+  category?: Category[];
+  session: Session | null;
 }
 
-export const SidebarWrapper = ({subreddit, session}:SidebarWrapperProps) => {
+export const SidebarWrapper = ({ category, session }: SidebarWrapperProps) => {
   const router = useRouter();
-  const pathname = usePathname()
+  const pathname = usePathname();
+  const { isSidebarOpen, setIsSidebarOpen } = useSidebar();
   const { collapsed, setCollapsed } = useSidebarContext();
 
-  const [mounted, setMounted] = useState(false)
-  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const sidebarRef = useRef<HTMLDivElement>(null);
 
-  console.log(subreddit)
+  const closeSidebarOnLinkClick = (e: any) => {
+    if (isSidebarOpen) setIsSidebarOpen();
+  };
 
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    const sidebarClickAction = sidebarRef.current?.querySelectorAll("a");
+    if (sidebarClickAction) {
+      sidebarClickAction.forEach((a) => {
+        a.addEventListener("click", closeSidebarOnLinkClick);
+      });
+    }
 
-  if(!mounted) return null
+    // Dodaj event listener do całej strony, który będzie zamykał sidebar po kliknięciu poza jego obszarem
+    const closeSidebarOnOutsideClick = (e: any) => {
+      if (
+        isSidebarOpen &&
+        sidebarRef.current &&
+        !sidebarRef.current.contains(e.target)
+      ) {
+        setIsSidebarOpen();
+      }
+    };
 
-  
+    // Nasłuchuj na zdarzenia kliknięcia na całej stronie
+    document.addEventListener("click", closeSidebarOnOutsideClick);
 
+    // Warto usunąć nasłuchiwanie zdarzeń, gdy komponent jest oczyszczany
+    return () => {
+      if (sidebarClickAction) {
+        sidebarClickAction.forEach((a) => {
+          a.removeEventListener("click", closeSidebarOnLinkClick);
+        });
+      }
+      // Usuń event listener po zniszczeniu komponentu
+      document.removeEventListener("click", closeSidebarOnOutsideClick);
+    };
+  }, [isSidebarOpen]);
 
-  console.log("subreddit", subreddit)
+  const socials = [
+    {
+      title: "GitHub",
+      icon: <AiFillGithub />,
+    },
+    {
+      title: "LinkedIn",
+      icon: <AiFillLinkedin />,
+    },
+  ];
 
   return (
-    <aside className="h-screen z-[202] sticky top-0">
-      {collapsed ? (
-        <div className={Sidebar.Overlay()} onClick={setCollapsed} />
-      ) : null}
+    <>
       <div
-        className={Sidebar({
-          collapsed: collapsed,
-        })}
+        ref={sidebarRef}
+        className={`lg:relative lg:block min-w-[15rem] w-auto lg:z-auto lg:top-auto lg:left-auto lg:h-auto lg:translate-x-0 lg:left lg:w-96 border-r-1 border-e-default-100 ${
+          isSidebarOpen
+            ? "fixed top-0 left-0 bg-background z-[9999] h-screen w-4/5 transition-transform transform translate-x-0"
+            : "fixed top-0 left-0 bg-background z-[9999] h-screen w-4/5 transition-transform transform -translate-x-full"
+        }`}
       >
-        <div className={Sidebar.Header()}>
-          MyBlog
-        </div>
-        <div className="flex flex-col justify-between h-full">
-          <div className={Sidebar.Body()}>
-            <SidebarItem
-              title="Home"
-              icon={<AiFillHome />}
-              isActive={pathname === "/"}
-              href="/"
-            />
-            <SidebarMenu title="Categories">
-              {subreddit ? (
-                subreddit.map((item, i) => 
+        <aside
+          className="relative z-[202] lg:sticky top-[4rem] p-4"
+          style={{ height: "calc(100vh - 4rem)" }}
+        >
+          <div className="flex flex-col justify-between gap-4 h-full">
+            <div className="flex flex-col">
+              <SidebarSection>
                 <SidebarItem
-                key={i}
-                href={`/r/${item.name}`}
-                isActive={pathname === `/r/${item.name}`}
-                title={item.name}
-                icon={<AiFillPayCircle />}
-              />
-              )
-              ) : null}
-              <Button color="secondary" variant="flat" className="capitalize" onClick={()=>router.push("/r/create")}>
-                  Create category +
-              </Button>
-              
-              
-            </SidebarMenu>
-
-            <SidebarMenu title="General">
-              
-              <CollapseItems
-                icon={<MdDeveloperMode />}
-                items={["GitHub", "LinkedIn"]}
-                title="developer"
-              />
-              <SidebarItem
-                isActive={pathname === "/settings"}
-                title="Settings"
-                icon={<FiSettings />}
-              />
-            </SidebarMenu>
-
-            <SidebarMenu title="Updates">
-              <SidebarItem
-                isActive={pathname === "/changelog"}
-                title="News"
-                icon={<BiNews />}
-              />
-            </SidebarMenu>
-          </div>
-          <div className={Sidebar.Footer()}>
-            <Tooltip content={"Settings"} color="primary">
-              <div className="max-w-fit">
-                <Button isIconOnly color="warning" variant="faded" aria-label="Go to settings" >
-                  <FiSettings />
-                </Button>
-              </div>
-            </Tooltip>
-            <Tooltip content={"Change mode"} color="primary">
-              <div className="max-w-fit">
-              
-                {theme === "dark" ? (
-                <Button isIconOnly color="warning" variant="faded" aria-label="Change color to light" onClick={() => setTheme('light')}>
-                  <BiSolidSun  />
-                </Button>
-                ) : ( 
-                <Button isIconOnly color="warning" variant="faded" aria-label="Change color to dark" onClick={() => setTheme('dark')}>
-                  <FiMoon  />
-                </Button>
-              )}
-                
-              </div>
-            </Tooltip>
-            <Tooltip content={"Profile"} color="primary">
-
-              {session && (
-                <Avatar
-                  src={session.user.image ? session.user.image : "" }
-                  radius="md"
-                  size="md"
+                  title="Home"
+                  icon={<AiFillHome />}
+                  isActive={pathname === "/"}
+                  href="/"
                 />
-              )}
-              
-            </Tooltip>
+                <SidebarItem
+                  title="Blog"
+                  icon={<ImBlogger />}
+                  isActive={pathname === "/blog"}
+                  href="/blog"
+                />
+              </SidebarSection>
+              <SidebarSection title="categories">
+                <CollapseItems
+                  isCollapseMenuOpen={true}
+                  icon={<MdDeveloperMode />}
+                  title="Popular"
+                >
+                  {category
+                    ? category.map((item, i) => (
+                        <CollapseItem
+                          key={i}
+                          href={`/blog/category/${item.name}`}
+                          isActive={pathname === `/blog/category/${item.name}`}
+                          title={item.name}
+                          icon={<AiFillPayCircle />}
+                        >
+                          <></>
+                        </CollapseItem>
+                      ))
+                    : null}
+
+                  <Link href={"/"} className="text-sm pt-4">
+                    See more
+                  </Link>
+                </CollapseItems>
+              </SidebarSection>
+
+              <SidebarSection title="About me">
+                <CollapseItems
+                  isCollapseMenuOpen={false}
+                  icon={<MdDeveloperMode />}
+                  title="developer"
+                >
+                  {socials
+                    ? socials.map((item, i) => (
+                        <CollapseItem
+                          key={i}
+                          href={`/blog/category/${item.title}`}
+                          isActive={pathname === `/blog/category/${item.title}`}
+                          title={item.title}
+                          icon={item.icon}
+                        >
+                          <></>
+                        </CollapseItem>
+                      ))
+                    : null}
+                </CollapseItems>
+              </SidebarSection>
+              <SidebarSection title="Others">
+                <SidebarItem
+                  isActive={pathname === "/changelog"}
+                  title="News"
+                  icon={<BiNews />}
+                />
+                <SidebarItem
+                  isActive={pathname === "/settings"}
+                  title="Settings"
+                  icon={<FiSettings />}
+                />
+              </SidebarSection>
+            </div>
+            <div className="flex flex-row gap-4 items-center justify-center">
+              <SidebarBottomItem
+                onClick={() => {}}
+                icon={<FiSettings />}
+                title="Settings"
+              />
+              <SidebarBottomItem
+                icon={theme === "dark" ? <BiSolidSun /> : <FiMoon />}
+                title="Change theme"
+                onClick={() => {
+                  theme === "dark" && setTheme("light");
+                  theme === "light" && setTheme("dark");
+                }}
+              />
+              {/* <SidebarBottomItem icon={<FiSettings />} title="Settings" /> */}
+
+              <Tooltip content={"Profile"} color="primary">
+                {session && (
+                  <Avatar
+                    src={session.user.image ? session.user.image : ""}
+                    radius="md"
+                    size="md"
+                  />
+                )}
+              </Tooltip>
+            </div>
           </div>
-        </div>
+        </aside>
       </div>
-    </aside>
+      {isSidebarOpen && (
+        <>
+          <div
+            className="fixed top-0 left-0 h-screen w-screen bg-black opacity-60 z-[9998] cursor-pointer"
+            onClick={() => {
+              setTimeout(() => {
+                setIsSidebarOpen();
+              }, 300); // Opóźnienie 300 milisekund (0,3 sekundy)
+            }}
+          ></div>
+          <Button
+            isIconOnly
+            className="fixed top-5 right-5 bg-background opacity-100 z-[9999]"
+          >
+            <MdClose />
+          </Button>
+        </>
+      )}
+    </>
   );
 };
