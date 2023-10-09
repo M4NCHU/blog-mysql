@@ -1,11 +1,11 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { FC, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 
 import { Button, Link } from "@nextui-org/react";
 import { Session } from "next-auth";
-import { BiLogInCircle, BiSun } from "react-icons/bi";
+import { BiLogInCircle, BiSidebar, BiSun } from "react-icons/bi";
 import { FiMoon } from "react-icons/fi";
 import { HiBars3BottomLeft } from "react-icons/hi2";
 import HeaderLink from "./HeaderLink";
@@ -13,6 +13,8 @@ import { NotificationsDropdown } from "./NotificationsDropdown";
 import { UserDropdown } from "./UserDropdown";
 import { DarkModeSwitch } from "./darkmodeswitch";
 import { MdClose } from "react-icons/md";
+import { useSidebar } from "@/context/SidebarContext";
+import RoundedBtn from "../UI/RoundedBtn";
 
 interface HeaderProps {
   session: Session | null;
@@ -20,13 +22,49 @@ interface HeaderProps {
 
 const Header: FC<HeaderProps> = ({ session }) => {
   const { theme, setTheme } = useTheme();
-  const [isNavOpen, setIsSidebarOpen] = useState(false);
+  const [isNavOpen, setIsNavOpen] = useState(false);
+  const navbarRef = useRef<HTMLDivElement>(null);
+  const { isSidebarOpen, setIsSidebarOpen } = useSidebar();
 
   const toggleNav = () => {
-    setIsSidebarOpen(!isNavOpen);
+    setIsNavOpen(!isNavOpen);
   };
 
-  // console.log(isSidebarOpen);
+  useEffect(() => {
+    const navbarClickAction = navbarRef.current?.querySelectorAll("a");
+    if (navbarClickAction) {
+      navbarClickAction.forEach((a: any) => {
+        a.addEventListener("click", toggleNav);
+      });
+    }
+
+    // Dodaj event listener do całej strony, który będzie zamykał Nav po kliknięciu poza jego obszarem
+    const closeNavOnOutsideClick = (e: any) => {
+      if (
+        isNavOpen &&
+        navbarRef.current &&
+        !navbarRef.current.contains(e.target)
+      ) {
+        toggleNav();
+      }
+    };
+
+    // Nasłuchuj na zdarzenia kliknięcia na całej stronie
+    document.addEventListener("click", closeNavOnOutsideClick);
+
+    // Warto usunąć nasłuchiwanie zdarzeń, gdy komponent jest oczyszczany
+    return () => {
+      if (navbarClickAction) {
+        navbarClickAction.forEach((a) => {
+          a.removeEventListener("click", toggleNav);
+        });
+      }
+      // Usuń event listener po zniszczeniu komponentu
+      document.removeEventListener("click", closeNavOnOutsideClick);
+    };
+  }, [isNavOpen]);
+
+  // console.log(isNavOpen);
 
   const menuItems = [
     "Profile",
@@ -62,31 +100,31 @@ const Header: FC<HeaderProps> = ({ session }) => {
 
   return (
     <>
-      <nav className="fixed top-0 navbar h-[4rem] w-full border-b-1 border-default-100 bg-background z-[9999] backdrop-blur-xl backdrop-saturate-150 bg-background/70 px-8 py-2 flex flex-row items-center justify-between">
+      <nav
+        ref={navbarRef}
+        className="fixed top-0 navbar h-[4rem] w-full border-b-1 border-default-100 bg-background z-[9990] backdrop-blur-xl backdrop-saturate-150 bg-background/70 px-4 md:px-8 py-2 flex flex-row items-center justify-between"
+      >
         <div className="navbar-logo flex flex-row gap-2">
-          <a href="/" className="m-0 text-2xl font-semibold">
-            Portfolio
-          </a>
-          <Button
-            isIconOnly
-            className="flex rounded-full sm:hidden bg-transparent hover:bg-default-100 text-xl"
-            onClick={() => toggleNav()}
+          <a
+            href="/"
+            className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text"
           >
-            <HiBars3BottomLeft />
-          </Button>
+            MS
+          </a>
+          <RoundedBtn icon={<BiSidebar />} onclick={() => setIsSidebarOpen()} />
         </div>
         <ul
           className={`navbar-links ${
             isNavOpen
-              ? "fixed top-[4rem] left-0 bg-backgroundSecond p-8 z-[9999]"
+              ? "fixed top-[4rem] left-0 bg-backgroundSecond p-8 z-[9990]"
               : "hidden"
-          } flex flex-col sm:flex-row w-full sm:w-auto sm:bg-transparent items-center gap-6`}
+          } md:flex flex-col sm:flex-row w-full sm:w-auto sm:bg-transparent items-center gap-6`}
         >
           {navLinks.map((item, i) => (
             <HeaderLink key={i} title={item.title} href={item.href} />
           ))}
         </ul>
-        <div className="navbar-user flex items-center gap-1 sm:gap-2">
+        <div className="navbar-user flex items-center gap-1 sm:gap-4 md:gap-2">
           <DarkModeSwitch />
           {/* {theme === "dark" && (
           <Button
@@ -124,12 +162,19 @@ const Header: FC<HeaderProps> = ({ session }) => {
               <span className="text-sm">Login</span>
             </Link>
           )}
+          <Button
+            isIconOnly
+            className="flex rounded-full sm:hidden bg-transparent hover:bg-default-100 text-2xl font-bold"
+            onClick={() => toggleNav()}
+          >
+            <HiBars3BottomLeft />
+          </Button>
         </div>
       </nav>
       {isNavOpen && (
         <>
           <div
-            className="fixed top-0 left-0 h-screen w-screen bg-black opacity-60 z-[9998] cursor-pointer"
+            className="fixed top-0 left-0 h-screen w-screen bg-black opacity-60 z-[9989] cursor-pointer"
             onClick={() => {
               setTimeout(() => {
                 toggleNav();

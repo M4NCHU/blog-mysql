@@ -97,8 +97,8 @@ export const SidebarWrapper = ({ category, session }: SidebarWrapperProps) => {
         ref={sidebarRef}
         className={`lg:relative lg:block min-w-[15rem] w-auto lg:z-auto lg:top-auto lg:left-auto lg:h-auto lg:translate-x-0 lg:left lg:w-96 border-r-1 border-e-default-100 ${
           isSidebarOpen
-            ? "fixed top-0 left-0 bg-background z-[9999] h-screen w-4/5 transition-transform transform translate-x-0"
-            : "fixed top-0 left-0 bg-background z-[9999] h-screen w-4/5 transition-transform transform -translate-x-full"
+            ? "fixed top-0 left-0 bg-background z-[9990] h-screen w-4/5 transition-transform transform translate-x-0"
+            : "fixed top-0 left-0 bg-background z-[9990] h-screen w-4/5 transition-transform transform -translate-x-full"
         }`}
       >
         <aside
@@ -206,7 +206,7 @@ export const SidebarWrapper = ({ category, session }: SidebarWrapperProps) => {
       {isSidebarOpen && (
         <>
           <div
-            className="fixed top-0 left-0 h-screen w-screen bg-black opacity-60 z-[9998] cursor-pointer"
+            className="fixed top-0 left-0 h-screen w-screen bg-black opacity-60 z-[9989] cursor-pointer"
             onClick={() => {
               setTimeout(() => {
                 setIsSidebarOpen();
@@ -215,7 +215,7 @@ export const SidebarWrapper = ({ category, session }: SidebarWrapperProps) => {
           ></div>
           <Button
             isIconOnly
-            className="fixed top-5 right-5 bg-background opacity-100 z-[9999]"
+            className="fixed top-5 right-5 bg-background opacity-100 z-[9990]"
           >
             <MdClose />
           </Button>

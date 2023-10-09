@@ -20,11 +20,10 @@ const CreatePostHeader: FC<CreatePostHeaderProps> = ({ slug, names }) => {
         in r/{slug}
       </p>
       <Select
-        color="secondary"
         label="Choose category"
         placeholder="Choose category"
         defaultSelectedKeys={[`${slug}`]}
-        className="max-w-xs"
+        className="max-w-xs bg-default-100 rounded-lg"
       >
         {names.map((item, i) => (
           <SelectItem

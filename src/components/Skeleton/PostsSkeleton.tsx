@@ -61,9 +61,8 @@ const PostsSkeleton: FC<PostsSkeletonProps> = ({}) => {
                     {/* <GoComment/> */}
 
                     <Skeleton className="h-3 w-5 rounded-lg" />
-                    <p className="text-center font-medium text-sm text-foreground">
-                      <Skeleton className="h-3 w-5 rounded-lg" />
-                    </p>
+
+                    <Skeleton className="h-3 w-5 rounded-lg" />
                   </div>
                 </div>
               </div>

@@ -24,7 +24,7 @@ const Contact: FC<ContactProps> = ({}) => {
       <div className="w-full">
         <form className="w-full p-6 bg-backgroundSecond rounded-xl flex flex-col gap-4 ">
           <h4 className="text-xl font-bold">Contact</h4>
-          <div className="w-full flex flex-row gap-2">
+          <div className="w-full flex flex-col md:flex-row gap-2 border-b-1 border-default-100 pb-2">
             <Input
               label="First name"
               type="text"
@@ -45,7 +45,7 @@ const Contact: FC<ContactProps> = ({}) => {
             />
           </div>
 
-          <div className="w-full flex flex-row gap-2">
+          <div className="w-full flex flex-col md:flex-row gap-2 border-b-1 border-default-100 pb-2">
             <Input
               label="Phone Number"
               type="text"

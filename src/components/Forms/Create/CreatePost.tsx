@@ -13,7 +13,7 @@ interface CreatePostProps {
 
 const CreatePost: FC<CreatePostProps> = ({ slug, categoryId, names }) => {
   return (
-    <div className="mt-6 md:p-2  gap-6 flex flex-col w-full">
+    <div className="mt-6 px-2  gap-6 flex flex-col w-full pb-24">
       <div className="flex flex-col gap-2 w-full"></div>
 
       <CreatePostHeader slug={slug} names={names} />

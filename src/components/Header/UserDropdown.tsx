@@ -2,20 +2,12 @@
 
 import {
   Avatar,
-  Button,
-  Chip,
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-  Navbar,
-  NavbarItem,
 } from "@nextui-org/react";
-import React from "react";
-import { DarkModeSwitch } from "./darkmodeswitch";
-import { FiSettings } from "react-icons/fi";
 import { Session } from "next-auth";
-import Image from "next/image";
 import { signOut } from "next-auth/react";
 
 interface UserDropdownProps {

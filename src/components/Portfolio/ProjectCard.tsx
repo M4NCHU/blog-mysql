@@ -24,10 +24,10 @@ const ProjectCard: FC<ProjectCardProps> = ({ order }) => {
             enim. Itaque, asperiores!
           </p>
           <div className="buttons flex flex-row gap-2">
-            <Button size="sm" className="bg-transparent hover:bg-default-100">
+            <Button size="md" className="bg-transparent hover:bg-default-100">
               react more
             </Button>
-            <Button size="sm" className="bg-default-200 hover:bg-default-300">
+            <Button size="md" className="bg-default-200 hover:bg-default-300">
               Visit
             </Button>
           </div>

@@ -39,6 +39,7 @@ const CustomFeed: FC<CustomFeedProps> = async ({}) => {
     take: INFINITE_SCROLLING_PAGINATION_RESULTS,
   });
 
+  const findFirst = await db.category.findFirst();
   const categoryNames = await db.category.findMany();
   const names = categoryNames.map((category) => category.name);
   // await new Promise((resolve) => setTimeout(resolve, 200000));
