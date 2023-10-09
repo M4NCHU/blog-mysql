@@ -15,6 +15,7 @@ import { DarkModeSwitch } from "./darkmodeswitch";
 import { MdClose } from "react-icons/md";
 import { useSidebar } from "@/context/SidebarContext";
 import RoundedBtn from "../UI/RoundedBtn";
+import RoundedBtnWithClick from "../UI/RoundedBtnWithClick";
 
 interface HeaderProps {
   session: Session | null;
@@ -111,7 +112,10 @@ const Header: FC<HeaderProps> = ({ session }) => {
           >
             MS
           </a>
-          <RoundedBtn icon={<BiSidebar />} onclick={() => setIsSidebarOpen()} />
+          <RoundedBtnWithClick
+            icon={<BiSidebar />}
+            onclick={() => setIsSidebarOpen()}
+          />
         </div>
         <ul
           className={`navbar-links ${

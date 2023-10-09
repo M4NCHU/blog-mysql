@@ -3,19 +3,24 @@
 import { Button } from "@nextui-org/react";
 import { FC } from "react";
 
-interface RoundedBtnProps {
+interface RoundedBtnWithClickProps {
   icon: React.ReactNode;
+  onclick: () => void;
 }
 
-const RoundedBtn: FC<RoundedBtnProps> = ({ icon }) => {
+const RoundedBtnWithClick: FC<RoundedBtnWithClickProps> = ({
+  icon,
+  onclick,
+}) => {
   return (
     <Button
       isIconOnly
       className="flex rounded-full  bg-transparent hover:bg-default-100 text-xl"
+      onClick={onclick}
     >
       {icon}
     </Button>
   );
 };
 
-export default RoundedBtn;
+export default RoundedBtnWithClick;
