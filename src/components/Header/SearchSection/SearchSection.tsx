@@ -1,25 +1,23 @@
 "use client";
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Button,
-  useDisclosure,
-  Checkbox,
-  Input,
-  Link,
-} from "@nextui-org/react";
-import { BiLock, BiMailSend, BiSearch } from "react-icons/bi";
-import { useQuery } from "react-query";
-import axios from "axios";
-import { Prisma, Category } from "@prisma/client";
-import { usePathname, useRouter } from "next/navigation";
-import debounce from "lodash.debounce";
 import { useOnClickOutside } from "@/hooks/use-on-click-outside";
+import {
+  Button,
+  Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure,
+} from "@nextui-org/react";
+import { Category, Prisma } from "@prisma/client";
+import axios from "axios";
+import debounce from "lodash.debounce";
+import { usePathname, useRouter } from "next/navigation";
+import { BiSearch } from "react-icons/bi";
+import { useQuery } from "react-query";
 
 // import Link from 'next/link';
 

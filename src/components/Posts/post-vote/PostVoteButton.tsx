@@ -1,9 +1,7 @@
-import { cn } from "@/lib/utils";
 import { Button } from "@nextui-org/react";
 import { VoteType } from "@prisma/client";
 import { FC } from "react";
-import { AiFillHeart, AiOutlineArrowUp, AiOutlineHeart } from "react-icons/ai";
-import { BiHeartCircle } from "react-icons/bi";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 interface PostVoteButtonProps {
   action: () => void;

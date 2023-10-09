@@ -1,7 +1,6 @@
-"use client"
+"use client";
 
-import { Avatar, Card, CardBody } from "@nextui-org/react";
-import React from "react";
+import { Card, CardBody } from "@nextui-org/react";
 
 const items = [
   {
@@ -48,9 +47,7 @@ export const CardTransactions = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-6 ">
-          
-        </div>
+        <div className="flex flex-col gap-6 "></div>
       </CardBody>
     </Card>
   );

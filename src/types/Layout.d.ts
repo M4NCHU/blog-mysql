@@ -1,7 +1,7 @@
 type ConfigTheme = {
-    extend?: "light" | "dark"; // base theme to extend
-    layout?: LayoutTheme; // see LayoutTheme
-    colors?: ThemeColors; // see ThemeColors
+  extend?: "light" | "dark"; // base theme to extend
+  layout?: LayoutTheme; // see LayoutTheme
+  colors?: ThemeColors; // see ThemeColors
 };
 
 export type BaseThemeUnit = {
@@ -16,7 +16,7 @@ export type FontThemeUnit = {
   large?: string;
   tiny?: string;
 };
-  
+
 type ConfigThemes = Record<string, ConfigTheme>;
 
 type BaseThemeUnit = {

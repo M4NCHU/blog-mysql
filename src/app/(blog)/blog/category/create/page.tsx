@@ -1,6 +1,5 @@
 "use client";
 
-import { CardTransactions } from "@/components/Home/card-categories";
 import LayoutDefault from "@/components/layout/LayoutDefault";
 import { CreateCategoryPayload } from "@/lib/validators/category";
 import { Button, Input } from "@nextui-org/react";

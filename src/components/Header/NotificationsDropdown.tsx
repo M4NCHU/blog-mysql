@@ -1,17 +1,12 @@
 import {
-  Badge,
   Button,
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownSection,
   DropdownTrigger,
-  NavbarItem,
 } from "@nextui-org/react";
-import React from "react";
 
-import { AiFillNotification } from "react-icons/ai";
-import { BiSolidNotification } from "react-icons/bi";
 import { IoIosNotificationsOutline } from "react-icons/io";
 
 export const NotificationsDropdown = () => {

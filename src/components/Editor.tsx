@@ -1,16 +1,16 @@
 "use client";
 
-import EditorJS from "@editorjs/editorjs";
-import { FC, useCallback, useEffect, useRef, useState } from "react";
-import TextareaAutosize from "react-textarea-autosize";
-import { useForm } from "react-hook-form";
-import { PostCreationRequest, PostValidator } from "@/lib/validators/post";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { uploadFiles } from "@/lib/uploadthing";
-import toast, { Toaster } from "react-hot-toast";
-import { useMutation } from "react-query";
+import { PostCreationRequest, PostValidator } from "@/lib/validators/post";
+import EditorJS from "@editorjs/editorjs";
+import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { usePathname, useRouter } from "next/navigation";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useMutation } from "react-query";
+import TextareaAutosize from "react-textarea-autosize";
 import { z } from "zod";
 
 type FormData = z.infer<typeof PostValidator>;

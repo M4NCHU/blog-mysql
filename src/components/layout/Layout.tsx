@@ -1,9 +1,8 @@
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import React from "react";
-import Header from "../Header/Header";
-import { SidebarWrapper } from "../Sidebar/sidebar";
 import Footer from "../Footer/Footer";
+import Header from "../Header/Header";
 
 interface Props {
   children: React.ReactNode;

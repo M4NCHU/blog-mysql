@@ -1,8 +1,8 @@
-import { FC } from "react";
 import Blog from "@/assets/blog.png";
-import Image from "next/image";
 import { Button } from "@nextui-org/react";
+import Image from "next/image";
 import Link from "next/link";
+import { FC } from "react";
 
 interface ProjectCardProps {
   order: string;

@@ -1,4 +1,3 @@
-import CategoryDetails from "@/components/Categories/CategoryDetails";
 import { SidebarWrapper } from "@/components/Sidebar/sidebar";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";

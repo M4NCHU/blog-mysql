@@ -1,7 +1,7 @@
 import { FC } from "react";
-import FooterSection from "./FooterSection";
 import FooterList from "./FooterList";
 import FooterListItem from "./FooterListItem";
+import FooterSection from "./FooterSection";
 
 import { FaFacebook, FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import RoundedBtn from "../UI/RoundedBtn";

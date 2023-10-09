@@ -1,12 +1,10 @@
 "use client";
-import React from "react";
 
-import dynamic from "next/dynamic";
 // import { TableWrapper } from "../table/table";
 
-import { CardTransactions } from "./card-categories";
 import { Link } from "@nextui-org/react";
 import NextLink from "next/link";
+import { CardTransactions } from "./card-categories";
 
 // const Chart = dynamic(
 //   () => import("../charts/steam").then((mod) => mod.Steam),

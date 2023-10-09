@@ -2,10 +2,10 @@
 
 import { SubscribeToCategoryPayload } from "@/lib/validators/category";
 import { Button } from "@nextui-org/react";
-import axios, { Axios, AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { FC, startTransition } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useMutation } from "react-query";
 
 interface SubscribeLeaveToggleProps {

@@ -1,7 +1,6 @@
 "use client";
 
 import SignIn from "@/components/Authentication/SignIn";
-import { useRouter } from "next/navigation";
 import { FC } from "react";
 
 interface pageProps {}

@@ -2,7 +2,7 @@
 
 import { formatTimeToNow } from "@/lib/utils";
 import { Button } from "@nextui-org/react";
-import { Category, Session } from "@prisma/client";
+import { Category } from "@prisma/client";
 import { FC } from "react";
 import { FiSettings } from "react-icons/fi";
 import SubscribeLeaveToggle from "../Categories/SubsctibeLeaveToggle";

@@ -1,8 +1,6 @@
 "use client";
-import React, { Children, FC } from "react";
-import Header from "../Header/Header";
-import { getAuthSession } from "@/lib/auth";
 import { Session } from "next-auth";
+import React, { FC } from "react";
 
 interface MainWrapperProps {
   children: React.ReactNode;

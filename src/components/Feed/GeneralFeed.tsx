@@ -1,8 +1,8 @@
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import { db } from "@/lib/db";
 import { FC, Suspense } from "react";
-import PostFeed from "./PostFeed";
 import PostsSkeleton from "../Skeleton/PostsSkeleton";
+import PostFeed from "./PostFeed";
 
 interface GeneralFeedProps {}
 

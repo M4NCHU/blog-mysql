@@ -1,17 +1,13 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { PostVoteRequest } from "@/lib/validators/vote";
 import { usePrevious } from "@mantine/hooks";
-import { Button } from "@nextui-org/react";
 import { VoteType } from "@prisma/client";
 import axios, { AxiosError } from "axios";
-import { FC, useEffect, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
-import { AiOutlineArrowUp, AiOutlineArrowDown } from "react-icons/ai";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useMutation } from "react-query";
 import PostVoteButton from "./PostVoteButton";
-import { BiHeartCircle } from "react-icons/bi";
 
 interface PostVoteClientProps {
   postId: string;

@@ -5,8 +5,7 @@ import { Button } from "@nextui-org/react";
 import { signIn } from "next-auth/react";
 import * as React from "react";
 import { FC } from "react";
-import toast, { Toaster } from "react-hot-toast";
-import { FaGoogle } from "react-icons/fa";
+import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}

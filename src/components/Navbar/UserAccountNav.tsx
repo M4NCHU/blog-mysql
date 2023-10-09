@@ -1,11 +1,11 @@
 "use client";
 
-import { FC } from "react";
 import { User } from "next-auth";
-import Link from "next/link";
-import Image from "next/image";
 import { signOut } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { FC } from "react";
 
 interface UserAccountNavProps extends React.HTMLAttributes<HTMLDivElement> {
   user: Pick<User, "name" | "image" | "email">;

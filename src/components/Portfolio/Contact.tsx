@@ -1,10 +1,9 @@
 "use client";
 
-import { FC } from "react";
-import SectionHeader from "./SectionHeader";
-import Image from "next/image";
 import ContactImg from "@/assets/contact.png";
 import { Input, Textarea } from "@nextui-org/react";
+import Image from "next/image";
+import { FC } from "react";
 
 interface ContactProps {}
 

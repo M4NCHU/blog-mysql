@@ -1,8 +1,6 @@
 import SignIn from "@/components/Authentication/SignIn";
 import { getAuthSession } from "@/lib/auth";
-import Link from "next/link";
 import { redirect } from "next/navigation";
-import { FC } from "react";
 
 interface pageProps {}
 

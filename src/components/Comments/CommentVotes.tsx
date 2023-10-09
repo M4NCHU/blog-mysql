@@ -1,19 +1,13 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { CommentVoteRequest } from "@/lib/validators/vote";
 import { usePrevious } from "@mantine/hooks";
 import { Button } from "@nextui-org/react";
 import { CommentVote, VoteType } from "@prisma/client";
 import axios, { AxiosError } from "axios";
 import { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
-import {
-  AiFillHeart,
-  AiOutlineArrowDown,
-  AiOutlineArrowUp,
-  AiOutlineHeart,
-} from "react-icons/ai";
+import toast from "react-hot-toast";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { useMutation } from "react-query";
 
 type PartialVote = Pick<CommentVote, "type">;

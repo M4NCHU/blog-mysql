@@ -11,6 +11,7 @@ import { useSidebar } from "@/context/SidebarContext";
 import { Category } from "@prisma/client";
 import { Session } from "next-auth";
 import { useTheme } from "next-themes";
+import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   AiFillGithub,
@@ -18,14 +19,13 @@ import {
   AiFillLinkedin,
   AiFillPayCircle,
 } from "react-icons/ai";
-import { BiHomeAlt, BiNews, BiSolidSun } from "react-icons/bi";
+import { BiNews, BiSolidSun } from "react-icons/bi";
 import { FiMoon, FiSettings } from "react-icons/fi";
-import { MdClose, MdDeveloperMode } from "react-icons/md";
 import { ImBlogger } from "react-icons/im";
-import SidebarSection from "./SidebarSection";
+import { MdClose, MdDeveloperMode } from "react-icons/md";
 import CollapseItem from "./CollapseItem";
-import Link from "next/link";
 import SidebarBottomItem from "./SidebarBottomItem";
+import SidebarSection from "./SidebarSection";
 
 interface SidebarWrapperProps {
   category?: Category[];
@@ -187,14 +187,7 @@ export const SidebarWrapper = ({ category, session }: SidebarWrapperProps) => {
                 icon={<FiSettings />}
                 title="Settings"
               />
-              <SidebarBottomItem
-                icon={theme === "dark" ? <BiSolidSun /> : <FiMoon />}
-                title="Change theme"
-                onClick={() => {
-                  theme === "dark" && setTheme("light");
-                  theme === "light" && setTheme("dark");
-                }}
-              />
+
               {/* <SidebarBottomItem icon={<FiSettings />} title="Settings" /> */}
 
               <Tooltip content={"Profile"} color="primary">

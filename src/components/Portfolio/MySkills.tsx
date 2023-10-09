@@ -1,16 +1,14 @@
 import { FC } from "react";
-import SectionHeader from "./SectionHeader";
 import PortfolioCard from "./PortfolioCard";
+import SectionHeader from "./SectionHeader";
 
-import Men from "@/assets/men.png";
-import Success from "@/assets/success.png";
-import { FaReact } from "react-icons/fa";
-import ReactImg from "@/assets/pngwing.png";
 import JS from "@/assets/js.png";
+import Men from "@/assets/men.png";
 import Node from "@/assets/node.png";
-import Circle from "@/assets/circe.png";
-import WEB from "@/assets/web.png";
+import ReactImg from "@/assets/pngwing.png";
+import Success from "@/assets/success.png";
 import TailWind from "@/assets/tailwind.png";
+import WEB from "@/assets/web.png";
 import Image from "next/image";
 
 interface MySkillsProps {}

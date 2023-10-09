@@ -1,29 +1,21 @@
 "use client";
 
-import { formatTimeToNow } from "@/lib/utils";
 import { Post, User, Vote } from "@prisma/client";
 // import { MessageSquare } from 'lucide-react'
 import {
   Button,
-  Chip,
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-  Link,
 } from "@nextui-org/react";
-import NextLink from "next/link";
-import { FC, useEffect, useRef } from "react";
-import EditorOutput from "../EditorOutput";
-import PostVoteClient from "./post-vote/PostVoteClient";
-import { Avatar, Card, CardBody } from "@nextui-org/react";
-import { AiOutlineDotChart } from "react-icons/ai";
-import { BiDotsHorizontalRounded } from "react-icons/bi";
-import { GoComment, GoDotFill } from "react-icons/go";
-import { getAuthSession } from "@/lib/auth";
-import { classNames } from "uploadthing/client";
 import { useRouter } from "next/navigation";
+import { FC, useEffect, useRef } from "react";
+import { BiDotsHorizontalRounded } from "react-icons/bi";
+import { GoComment } from "react-icons/go";
+import EditorOutput from "../EditorOutput";
 import PostHeader from "./PostHeader";
+import PostVoteClient from "./post-vote/PostVoteClient";
 // import EditorOutput from './EditorOutput'
 // import PostVoteClient from './post-vote/PostVoteClient'
 

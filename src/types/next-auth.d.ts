@@ -1,6 +1,6 @@
 import { MemberRole } from "@prisma/client";
-import type { Session, User } from "next-auth";
-import type { JWT } from "next-auth/jwt";
+import type { User } from "next-auth";
+import "next-auth/jwt";
 
 type UserId = string;
 

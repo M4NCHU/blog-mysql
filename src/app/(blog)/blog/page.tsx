@@ -3,11 +3,8 @@ import CardWrapper from "@/components/BlogRight/CardWrapper";
 import CustomFeed from "@/components/Feed/CustomFeed";
 import GeneralFeed from "@/components/Feed/GeneralFeed";
 import PostsSkeleton from "@/components/Skeleton/PostsSkeleton";
-import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import { getAuthSession } from "@/lib/auth";
-import { db } from "@/lib/db";
-import { useParams, useRouter } from "next/navigation";
-import { FC, Suspense } from "react";
+import { Suspense } from "react";
 
 interface pageProps {
   params: {

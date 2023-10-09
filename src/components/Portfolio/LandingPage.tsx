@@ -38,7 +38,7 @@ const LandingPage: FC<LandingPageProps> = ({}) => {
         <div className="flex flex-col px-0 lg:px-8 gap-6  w-full justify-center ">
           <div className="portfolio-landing__header flex flex-col gap-2 justify-start">
             <h1 className="text-5xl lg:text-7xl font-semibold bg-gradient-to-r from-purple-500 to-blue-500 text-transparent bg-clip-text">
-              <Balancer>Hello, I'm Maciek</Balancer>
+              <Balancer>{`Hello, I'm Maciek`}</Balancer>
             </h1>
             <h2 className="text-4xl lg:text-5xl font-semibold ">
               Web Developer

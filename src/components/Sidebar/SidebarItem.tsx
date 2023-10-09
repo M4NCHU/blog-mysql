@@ -1,8 +1,7 @@
+import { useSidebarContext } from "@/components/layout/Layout-context";
+import { Button } from "@nextui-org/react";
 import NextLink from "next/link";
 import React from "react";
-import { useSidebarContext } from "@/components/layout/Layout-context";
-import clsx from "clsx";
-import { Button } from "@nextui-org/react";
 
 interface Props {
   title: string;

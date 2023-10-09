@@ -1,9 +1,9 @@
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
+import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { FC, Suspense } from "react";
-import PostFeed from "./PostFeed";
-import { getAuthSession } from "@/lib/auth";
 import PostsSkeleton from "../Skeleton/PostsSkeleton";
+import PostFeed from "./PostFeed";
 
 interface CustomFeedProps {}
 

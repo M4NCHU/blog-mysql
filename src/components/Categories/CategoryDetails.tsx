@@ -1,9 +1,9 @@
-import { Button, Card, CardBody } from "@nextui-org/react";
+import { Card, CardBody } from "@nextui-org/react";
 import { Category } from "@prisma/client";
+import { format } from "date-fns";
 import { Session } from "next-auth";
 import { FC } from "react";
 import SubscribeLeaveToggle from "./SubsctibeLeaveToggle";
-import { format } from "date-fns";
 
 interface CategoryDetailsProps {
   category: Category;

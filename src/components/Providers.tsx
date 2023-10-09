@@ -1,11 +1,11 @@
 "use client";
 
+import { SidebarContextProvider } from "@/context/SidebarContext";
+import { NextUIProvider } from "@nextui-org/react";
 import { SessionProvider } from "next-auth/react";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { FC } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { NextUIProvider } from "@nextui-org/react";
-import { ThemeProvider as NextThemesProvider } from "next-themes";
-import { SidebarContextProvider } from "@/context/SidebarContext";
 
 interface ProvidersProps {
   children: React.ReactNode;

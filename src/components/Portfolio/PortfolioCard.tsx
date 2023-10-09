@@ -1,6 +1,5 @@
 import Image, { StaticImageData } from "next/image";
 import { FC } from "react";
-import Circle from "@/assets/circe.png";
 
 interface PortfolioCardProps {
   no?: number;

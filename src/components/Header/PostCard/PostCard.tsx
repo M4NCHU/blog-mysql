@@ -1,13 +1,9 @@
-import { FC } from 'react'
+import { FC } from "react";
 
-interface PostCardProps {
-  
-}
+interface PostCardProps {}
 
 const PostCard: FC<PostCardProps> = ({}) => {
-  return (
-   <div>PostCard</div>
-  )
-}
+  return <div>PostCard</div>;
+};
 
-export default PostCard
+export default PostCard;

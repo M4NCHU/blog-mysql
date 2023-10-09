@@ -1,11 +1,9 @@
 "use client";
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useState } from "react";
+import Contact from "./Contact";
 import LandingPage from "./LandingPage";
 import MySkills from "./MySkills";
-import { FaReact } from "react-icons/fa";
 import RecentProjects from "./RecentProjects";
-import Contact from "./Contact";
-import Footer from "../Footer/Footer";
 
 interface PortfolioProps {}
 

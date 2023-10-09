@@ -1,6 +1,6 @@
+import Link from "next/link";
 import { FC } from "react";
 import UserAuthForm from "./UserAuthForm";
-import Link from "next/link";
 
 interface SignUpProps {}
 

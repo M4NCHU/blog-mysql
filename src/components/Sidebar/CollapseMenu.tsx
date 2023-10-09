@@ -1,7 +1,5 @@
+import { Accordion, AccordionItem, Selection } from "@nextui-org/react";
 import React, { useState } from "react";
-import { Accordion, AccordionItem } from "@nextui-org/react";
-import clsx from "clsx";
-import { AiFillCustomerService } from "react-icons/ai";
 
 interface Props {
   icon: React.ReactNode;
@@ -17,12 +15,12 @@ export const CollapseItems = ({
   isCollapseMenuOpen,
 }: Props) => {
   const [open, setOpen] = useState(false);
-  const [selectedKeys, setSelectedKeys] = React.useState(new Set(["1"]));
+  const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set(["1"]));
 
   return (
     <div className="flex gap-4 h-full items-center cursor-pointer">
       <Accordion
-        selectedKeys={isCollapseMenuOpen ? selectedKeys : ""}
+        selectedKeys={isCollapseMenuOpen ? selectedKeys : new Set<string>()}
         onSelectionChange={(keys) => setSelectedKeys(keys)}
         className="px-0"
         motionProps={{

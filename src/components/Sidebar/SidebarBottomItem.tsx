@@ -1,5 +1,4 @@
 import { Button, Tooltip } from "@nextui-org/react";
-import { title } from "process";
 import { FC } from "react";
 
 interface SidebarBottomItemProps {

@@ -1,15 +1,9 @@
-import { cn } from "@/lib/utils";
-import "../styles/globals.css";
-import type { Metadata } from "next";
-import Navbar from "@/components/Navbar/Navbar";
 import Providers from "@/components/Providers";
-import { SessionProvider } from "next-auth/react";
-import type { AppProps } from "next/app";
-import Layout from "@/components/layout/Layout";
-import { getAuthSession } from "@/lib/auth";
-import { db } from "@/lib/db";
-import { Toaster } from "react-hot-toast";
 import ScrollToTopButton from "@/components/UI/ScrollToTopButton";
+import Layout from "@/components/layout/Layout";
+import type { Metadata } from "next";
+import { Toaster } from "react-hot-toast";
+import "../styles/globals.css";
 
 export const metadata: Metadata = {
   title: "Blog",

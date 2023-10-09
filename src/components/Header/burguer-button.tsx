@@ -1,6 +1,4 @@
-import React from "react";
 import { useSidebarContext } from "@/components/layout/Layout-context";
-import { StyledBurgerButton } from "./navbar.styles";
 import { HiBars3BottomLeft } from "react-icons/hi2";
 
 export const BurguerButton = () => {
@@ -12,7 +10,7 @@ export const BurguerButton = () => {
       // open={collapsed}
       onClick={setCollapsed}
     >
-      <HiBars3BottomLeft/>
+      <HiBars3BottomLeft />
     </div>
   );
 };

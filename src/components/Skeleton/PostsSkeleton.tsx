@@ -2,7 +2,6 @@
 
 import { Skeleton } from "@nextui-org/react";
 import { FC } from "react";
-import { GoDotFill } from "react-icons/go";
 
 interface PostsSkeletonProps {}
 

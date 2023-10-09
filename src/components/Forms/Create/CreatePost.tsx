@@ -1,11 +1,9 @@
 "use client";
 
-import { FC } from "react";
-import LayoutDefault from "../../layout/LayoutDefault";
-import CreatePostHeader from "../../UI/headers/CreatePostHeader";
 import Editor from "@/components/Editor";
 import { Button } from "@nextui-org/react";
-import { CardTransactions } from "../../Home/card-categories";
+import { FC } from "react";
+import CreatePostHeader from "../../UI/headers/CreatePostHeader";
 
 interface CreatePostProps {
   slug: string;

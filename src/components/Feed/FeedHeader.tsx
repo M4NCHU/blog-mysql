@@ -4,10 +4,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-  Select,
-  SelectItem,
 } from "@nextui-org/react";
-import { Category } from "@prisma/client";
 import { usePathname, useRouter } from "next/navigation";
 
 import { FC } from "react";

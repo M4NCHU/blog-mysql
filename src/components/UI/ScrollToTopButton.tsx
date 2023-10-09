@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FaArrowUp } from "react-icons/fa";
 
 const ScrollToTopButton = ({ scrollThreshold = 200 }) => {

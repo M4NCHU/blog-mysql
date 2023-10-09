@@ -1,11 +1,4 @@
 import { getAuthSession } from "@/lib/auth";
-import { User } from "next-auth";
-import { signOut } from "next-auth/react";
-import Image from "next/image";
-import Link from "next/link";
-import { FC } from "react";
-import UserAccountNav from "./UserAccountNav";
-import { commonColors, semanticColors } from "@nextui-org/theme";
 import Header from "../Header/Header";
 
 interface Props {}
