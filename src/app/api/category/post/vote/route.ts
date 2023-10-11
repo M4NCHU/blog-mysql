@@ -34,6 +34,7 @@ export async function POST(req: Request) {
       include: {
         author: true,
         votes: true,
+        tags: true,
       },
     });
 
@@ -65,6 +66,7 @@ export async function POST(req: Request) {
             authorUsername: post.author.username ?? "",
             content: JSON.stringify(post.content),
             id: post.id,
+            tags: post.tags,
             title: post.title,
             currentVote: null,
             createdAt: post.createdAt,
@@ -101,6 +103,7 @@ export async function POST(req: Request) {
           authorUsername: post.author.username ?? "",
           content: JSON.stringify(post.content),
           id: post.id,
+          tags: post.tags,
           title: post.title,
           currentVote: voteType,
           createdAt: post.createdAt,
@@ -134,6 +137,7 @@ export async function POST(req: Request) {
         content: JSON.stringify(post.content),
         id: post.id,
         title: post.title,
+        tags: post.tags,
         currentVote: voteType,
         createdAt: post.createdAt,
       };
