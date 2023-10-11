@@ -16,8 +16,6 @@ const page = async ({ params }: pageProps) => {
   const { slug } = params;
   const session = await getAuthSession();
 
-  console.log(params.slug);
-
   return (
     <>
       <div className="grow">

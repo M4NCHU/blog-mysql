@@ -109,6 +109,7 @@ const PostFeed: FC<PostFeedProps> = ({
                       categoryName={post.category.name}
                       votesAmt={votesAmt}
                       currentVote={currentVote}
+                      role={session?.user.role}
                     />
                   </div>
                 </Link>
@@ -126,6 +127,7 @@ const PostFeed: FC<PostFeedProps> = ({
                     categoryName={post.category.name}
                     votesAmt={votesAmt}
                     currentVote={currentVote}
+                    role={session?.user.role}
                   />
                 </Link>
               );

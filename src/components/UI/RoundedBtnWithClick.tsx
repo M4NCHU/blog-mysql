@@ -15,7 +15,7 @@ const RoundedBtnWithClick: FC<RoundedBtnWithClickProps> = ({
   return (
     <Button
       isIconOnly
-      className="flex rounded-full  bg-transparent hover:bg-default-100 text-xl"
+      className="flex rounded-full  bg-default-200 hover:bg-default-100 text-xl"
       onClick={onclick}
     >
       {icon}

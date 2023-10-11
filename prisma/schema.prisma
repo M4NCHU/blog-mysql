@@ -85,17 +85,33 @@ model Subscription {
 }
 
 model Post {
-    id         String    @id @default(cuid())
+    id         String     @id @default(cuid())
     title      String
     content    Json?
-    createdAt  DateTime  @default(now())
-    updatedAt  DateTime  @updatedAt
-    author     User      @relation(fields: [authorId], references: [id])
+    createdAt  DateTime   @default(now())
+    updatedAt  DateTime   @updatedAt
+    author     User       @relation(fields: [authorId], references: [id])
     authorId   String
-    category   Category  @relation(fields: [categoryId], references: [id])
+    category   Category   @relation(fields: [categoryId], references: [id])
     categoryId String
     comments   Comment[]
     votes      Vote[]
+    tags       PostTags[]
+    isPrivate  Boolean    @default(false)
+}
+
+model PostTags {
+    id     String  @id @default(cuid())
+    post   Post?   @relation(fields: [postId], references: [id], onDelete: Cascade)
+    postId String
+    tag    Tag?    @relation(fields: [tagId], references: [id])
+    tagId  String?
+}
+
+model Tag {
+    id    String     @id @default(cuid())
+    name  String     @unique
+    posts PostTags[]
 }
 
 model Comment {

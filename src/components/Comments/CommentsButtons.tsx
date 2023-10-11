@@ -12,7 +12,6 @@ const CommentsButtons: FC<CommentsButtonsProps> = ({
   isReplaying,
   handleClose,
 }) => {
-  console.log(isReplaying);
   return (
     <div className="flex flex-row justify-end gap-2">
       <Button

@@ -2,8 +2,11 @@
 
 import { uploadFiles } from "@/lib/uploadthing";
 import { PostCreationRequest, PostValidator } from "@/lib/validators/post";
+import { PostTagRequest } from "@/lib/validators/tags";
 import EditorJS from "@editorjs/editorjs";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Button, Input, Select, SelectItem } from "@nextui-org/react";
+import { Tag } from "@prisma/client";
 import axios from "axios";
 import { usePathname, useRouter } from "next/navigation";
 import { FC, useCallback, useEffect, useRef, useState } from "react";
@@ -30,6 +33,8 @@ const Editor: FC<EditorProps> = ({ categoryId }) => {
       categoryId,
       title: "",
       content: null,
+      tags: [],
+      isPrivate: false,
     },
   });
 
@@ -39,6 +44,9 @@ const Editor: FC<EditorProps> = ({ categoryId }) => {
   const _titleRef = useRef<HTMLTextAreaElement>(null);
   const pathname = usePathname();
   const router = useRouter();
+  const [isPrivatePost, setIsPrivatePost] = useState<boolean>(false);
+  const [tags, setTags] = useState<PostTagRequest[]>([]);
+  const [tagInputValue, setTagInputValue] = useState("");
 
   const initializeEditor = useCallback(async () => {
     const EditorJS = (await import("@editorjs/editorjs")).default;
@@ -143,8 +151,20 @@ const Editor: FC<EditorProps> = ({ categoryId }) => {
   }, [isMounted, initializeEditor]);
 
   const { mutate: createPost } = useMutation({
-    mutationFn: async ({ title, content, categoryId }: PostCreationRequest) => {
-      const payload: PostCreationRequest = { title, content, categoryId };
+    mutationFn: async ({
+      title,
+      content,
+      categoryId,
+      tags,
+      isPrivate,
+    }: PostCreationRequest) => {
+      const payload: PostCreationRequest = {
+        title,
+        content,
+        categoryId,
+        tags,
+        isPrivate: isPrivatePost,
+      };
       const { data } = await axios.post("/api/category/post/create", payload);
       return data;
     },
@@ -169,6 +189,8 @@ const Editor: FC<EditorProps> = ({ categoryId }) => {
       title: data.title,
       content: blocks,
       categoryId,
+      tags: tags,
+      isPrivate: isPrivatePost,
     };
 
     createPost(payload);
@@ -180,13 +202,92 @@ const Editor: FC<EditorProps> = ({ categoryId }) => {
 
   const { ref: titleRef, ...rest } = register("title");
 
+  const handleSelectChange = (event: any) => {
+    const selectedValue = event.target.value;
+    const newIsPrivatePost = selectedValue === "true"; // Konwertuj wartość na boolean
+    setIsPrivatePost(newIsPrivatePost); // Zaktualizuj stan
+  };
+
+  const handleInputChange = (event: any) => {
+    setTagInputValue(event.target.value);
+  };
+
+  const handleInputKeyPress = (event: any) => {
+    let tagResult = tagInputValue.trim();
+    if (event.key === " " && tagInputValue.trim() !== "") {
+      if (tagResult.length <= 2) {
+        setTagInputValue("");
+        toast.error("Tag name is too short");
+        return;
+      }
+      if (!tags.some((tag) => tag.title === tagResult)) {
+        setTags([...tags, { title: tagResult }]);
+      } else {
+        toast.error("Tag with this name already exists");
+      }
+
+      setTagInputValue("");
+    }
+  };
+
+  const handleTagDelete = (tagToDelete: string) => {
+    const updatedTags = tags.filter((tag) => tag.title !== tagToDelete);
+    setTags(updatedTags);
+  };
+
   return (
-    <div className="w-full p-4 bg-background rounded-lg border border-zinc-200">
-      <form
-        id="category-post-form"
-        className="w-full"
-        onSubmit={handleSubmit(onSubmit)}
-      >
+    <form
+      id="category-post-form"
+      className="w-full"
+      onSubmit={handleSubmit(onSubmit)}
+    >
+      <div className="flex flex-col gap-6 mb-12">
+        <Select
+          defaultSelectedKeys={["false"]}
+          name="isPrivate"
+          id=""
+          size="sm"
+          typeof="text"
+          className="w-full md:w-1/2 "
+          label="Select visibility"
+          value={isPrivatePost.toString()}
+          onChange={handleSelectChange}
+        >
+          <SelectItem key="false" value="false">
+            Public
+          </SelectItem>
+          <SelectItem key="true" value="true">
+            Private
+          </SelectItem>
+        </Select>
+
+        <Input
+          placeholder="Enter tags"
+          className="w-full"
+          value={tagInputValue}
+          defaultValue="junior@nextui.org"
+          onChange={handleInputChange}
+          onKeyPress={handleInputKeyPress}
+        />
+        <div className="tags gap-2 flex flex-row flex-wrap">
+          {tags.map((tag, index) => (
+            <span
+              key={index}
+              className="tag bg-default-100 pl-2 flex flex-row items-center gap-2 rounded-full"
+            >
+              {tag.title}{" "}
+              <button
+                type="button"
+                onClick={() => handleTagDelete(tag.title)}
+                className="tag-delete rounded-full w-[2rem] h-[2rem] flex items-center justify-center hover:bg-default-200"
+              >
+                x
+              </button>
+            </span>
+          ))}
+        </div>
+      </div>
+      <div className="w-full p-4 bg-background rounded-lg border border-zinc-200">
         <div className="">
           <TextareaAutosize
             ref={(e) => {
@@ -207,8 +308,8 @@ const Editor: FC<EditorProps> = ({ categoryId }) => {
             to open the command menu.
           </p>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 };
 

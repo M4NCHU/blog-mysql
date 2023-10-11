@@ -10,7 +10,7 @@ import { redis } from "@/lib/redis";
 import { formatTimeToNow } from "@/lib/utils";
 import { CachedPost } from "@/types/redis";
 import { Avatar } from "@nextui-org/react";
-import { Post, User, Vote } from "@prisma/client";
+import { Post, PostTags, Tag, User, Vote } from "@prisma/client";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
@@ -34,7 +34,8 @@ const CategoryPostPage = async ({ params }: CategoryPostPageProps) => {
     `post:${params.postId}`
   )) as CachedPost;
 
-  let post: (Post & { votes: Vote[]; author: User }) | null = null;
+  let post: (Post & { votes: Vote[]; author: User; tags: PostTags[] }) | null =
+    null;
 
   if (!cachedPost) {
     post = await db.post.findFirst({
@@ -44,9 +45,19 @@ const CategoryPostPage = async ({ params }: CategoryPostPageProps) => {
       include: {
         votes: true,
         author: true,
+        tags: true,
       },
     });
   }
+
+  const tagsList = await db.postTags.findMany({
+    where: {
+      postId: post?.id,
+    },
+    include: {
+      tag: true,
+    },
+  });
 
   if (!post && !cachedPost) return notFound();
 
@@ -58,7 +69,7 @@ const CategoryPostPage = async ({ params }: CategoryPostPageProps) => {
         {/* {categoryName ? <CategoryHeader categoryName={categoryName}/> : null}
               <FeedHeader href={pathname === `/category/${categoryName}` ? `/category/${categoryName}` : null}/> */}
         <div className="sticky top-[4.5rem] flex justify-end w-full pr-2">
-          <div className=" flex items-center bg-background rounded-full gap-2 pr-2">
+          <div className=" flex items-center z-[9999] bg-background rounded-full gap-2 pr-2">
             <PostVoteServer
               postId={post?.id ?? cachedPost.id}
               getData={async () => {
@@ -79,6 +90,9 @@ const CategoryPostPage = async ({ params }: CategoryPostPageProps) => {
           categoryName={params.slug}
           createdAt={post?.createdAt ?? cachedPost.createdAt}
           image={post?.author.image ? (post.author.image as string) : undefined}
+          isPrivate={post?.isPrivate ? post?.isPrivate : undefined}
+          role={post?.author.role}
+          postId={post?.id}
         />
         <div className="grid grid-cols-1 gap-6 justify-center w-full">
           <div className="w-full">
@@ -88,9 +102,6 @@ const CategoryPostPage = async ({ params }: CategoryPostPageProps) => {
           </div>
 
           <EditorOutput content={post?.content ?? cachedPost.content} />
-          <Suspense fallback={<div>loading</div>}>
-            {/* <CommentsSection postId={post?.id ?? cachedPost.id} /> */}
-          </Suspense>
 
           <Suspense fallback={<PostVoteShell />}>
             <PostVoteServer
@@ -107,6 +118,16 @@ const CategoryPostPage = async ({ params }: CategoryPostPageProps) => {
               }}
             />
           </Suspense>
+        </div>
+        <div className="tags-list flex flex-row gap-2">
+          {tagsList.map((item, i) => (
+            <button
+              key={i}
+              className="px-2 py-1 bg-backgroundSecond rounded-lg"
+            >
+              {item.tag?.name}
+            </button>
+          ))}
         </div>
       </div>
       <CommentsSection postId={post?.id ?? cachedPost.id} />

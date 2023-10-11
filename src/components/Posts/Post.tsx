@@ -30,6 +30,7 @@ interface PostProps {
   categoryName: string;
   currentVote?: PartialVote;
   commentAmt: number;
+  role: string | undefined;
 }
 
 const Post: FC<PostProps> = ({
@@ -38,6 +39,7 @@ const Post: FC<PostProps> = ({
   currentVote: _currentVote,
   categoryName,
   commentAmt,
+  role,
 }) => {
   const pRef = useRef<HTMLParagraphElement>(null);
   const buttonRef = useRef<HTMLParagraphElement>(null);
@@ -68,6 +70,18 @@ const Post: FC<PostProps> = ({
     };
   }, []);
 
+  if (role === undefined) role = "GUEST";
+
+  const isPrivate = !post.isPrivate;
+  const isAdmin = role === "ADMIN";
+
+  // Sprawdzamy, czy post jest prywatny i czy użytkownik jest administratorem
+  const isVisibleToUser = isPrivate || isAdmin;
+
+  if (!isVisibleToUser && !isAdmin) {
+    return null;
+  }
+
   return (
     <>
       <div
@@ -82,6 +96,9 @@ const Post: FC<PostProps> = ({
               image={
                 post.author.image ? (post.author.image as string) : undefined
               }
+              isPrivate={isPrivate}
+              role={role}
+              postId={post.id}
             />
 
             <div className="post-actions">

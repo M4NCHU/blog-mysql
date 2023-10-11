@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { PostTagValidator } from "./tags";
 
 export const PostValidator = z.object({
   title: z
@@ -11,6 +12,8 @@ export const PostValidator = z.object({
     }),
   categoryId: z.string(),
   content: z.any(),
+  tags: z.array(PostTagValidator),
+  isPrivate: z.boolean(),
 });
 
 export type PostCreationRequest = z.infer<typeof PostValidator>;

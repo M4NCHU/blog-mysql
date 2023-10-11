@@ -1,23 +1,33 @@
 "use client";
 
 import { formatTimeToNow } from "@/lib/utils";
-import { Avatar } from "@nextui-org/react";
+import { Avatar, Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { FC } from "react";
 import { GoDotFill } from "react-icons/go";
+import { GrUserAdmin } from "react-icons/gr";
+import { MdOutlineAdminPanelSettings, MdPublic } from "react-icons/md";
+import UpdatePostStatus from "../Forms/Edit/UpdatePostStatus";
 
 interface PostHeaderProps {
   categoryName: string;
   createdAt: Date;
   image: string | undefined;
+  isPrivate: boolean | undefined;
+  role: string | undefined;
+  postId: string | undefined;
 }
 
 const PostHeader: FC<PostHeaderProps> = ({
   categoryName,
   createdAt,
   image,
+  isPrivate,
+  role,
+  postId,
 }) => {
   const router = useRouter();
+  const isAdmin = role === "ADMIN";
 
   return (
     <div className="flex flex-row items-center gap-2">
@@ -51,6 +61,11 @@ const PostHeader: FC<PostHeaderProps> = ({
           {formatTimeToNow(new Date(createdAt))}
         </span>
       </div>
+      {isAdmin && postId !== undefined && isPrivate !== undefined && (
+        <>
+          <UpdatePostStatus role={role} isPrivate={isPrivate} postId={postId} />
+        </>
+      )}
     </div>
   );
 };

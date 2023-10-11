@@ -21,6 +21,9 @@ export default async function RootLayout({
 }: RootLayoutProps) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
       <body className="text-foreground bg-background min-h-screen antialiased my-custom-style">
         <Providers>
           <Toaster />

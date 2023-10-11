@@ -31,11 +31,16 @@ const Header: FC<HeaderProps> = ({ session }) => {
     setIsNavOpen(!isNavOpen);
   };
 
+  const closeNav = () => {
+    setIsNavOpen(false);
+  };
+
   useEffect(() => {
-    const navbarClickAction = navbarRef.current?.querySelectorAll("a");
+    const navbarClickAction =
+      navbarRef.current?.querySelectorAll("a.menu-link");
     if (navbarClickAction) {
       navbarClickAction.forEach((a: any) => {
-        a.addEventListener("click", toggleNav);
+        a.addEventListener("click", closeNav);
       });
     }
 
@@ -46,7 +51,7 @@ const Header: FC<HeaderProps> = ({ session }) => {
         navbarRef.current &&
         !navbarRef.current.contains(e.target)
       ) {
-        toggleNav();
+        closeNav();
       }
     };
 
@@ -57,15 +62,13 @@ const Header: FC<HeaderProps> = ({ session }) => {
     return () => {
       if (navbarClickAction) {
         navbarClickAction.forEach((a) => {
-          a.removeEventListener("click", toggleNav);
+          a.removeEventListener("click", closeNav);
         });
       }
       // Usuń event listener po zniszczeniu komponentu
       document.removeEventListener("click", closeNavOnOutsideClick);
     };
   }, [isNavOpen]);
-
-  // console.log(isNavOpen);
 
   const menuItems = [
     "Profile",
@@ -112,17 +115,17 @@ const Header: FC<HeaderProps> = ({ session }) => {
           >
             MS
           </a>
-          <RoundedBtnWithClick
+          {/* <RoundedBtnWithClick
             icon={<BiSidebar />}
             onclick={() => setIsSidebarOpen()}
-          />
+          /> */}
         </div>
         <ul
           className={`navbar-links ${
             isNavOpen
               ? "fixed top-[4rem] left-0 bg-backgroundSecond p-8 z-[9990]"
               : "hidden"
-          } md:flex flex-col sm:flex-row w-full sm:w-auto sm:bg-transparent items-center gap-6`}
+          } md:flex flex-col sm:flex-row w-full justify-center sm:w-auto sm:bg-transparent items-center gap-6`}
         >
           {navLinks.map((item, i) => (
             <HeaderLink key={i} title={item.title} href={item.href} />
