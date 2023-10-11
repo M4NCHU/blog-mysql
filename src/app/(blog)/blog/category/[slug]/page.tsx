@@ -31,6 +31,7 @@ const page: FC<pageProps> = async ({ params }) => {
           votes: true,
           comments: true,
           category: true,
+          tags: true,
         },
         orderBy: {
           createdAt: "desc",

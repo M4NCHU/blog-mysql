@@ -35,6 +35,7 @@ const CustomFeed: FC<CustomFeedProps> = async ({}) => {
       author: true,
       comments: true,
       category: true,
+      tags: true,
     },
     take: INFINITE_SCROLLING_PAGINATION_RESULTS,
   });
