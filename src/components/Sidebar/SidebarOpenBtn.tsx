@@ -14,7 +14,7 @@ const SidebarOpenBtn: FC<SidebarOpenBtnProps> = ({}) => {
     <Button
       isIconOnly
       onClick={() => setIsSidebarOpen()}
-      className={`fixed top-20 right-4 text-xl bg-default-200 flex lg:hidden z-[9990] rounded-full`}
+      className={`fixed top-[4.2rem] right-4 text-xl bg-default-200 flex lg:hidden z-[9990] rounded-full`}
     >
       <BiSidebar />
     </Button>

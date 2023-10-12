@@ -54,3 +54,10 @@ export function formatTimeToNow(date: Date): string {
     },
   });
 }
+
+export function getNiceDate(date: Date) {
+  let month = (date.getUTCMonth() + 1).toString().padStart(2, "0"); // Miesiące od 01 do 12
+  let day = date.getUTCDate().toString().padStart(2, "0");
+  let year = date.getUTCFullYear();
+  return year + "/" + month + "/" + day;
+}

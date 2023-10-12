@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 
 interface UserNameSettingsProps {
   user: Pick<User, "id" | "username">;

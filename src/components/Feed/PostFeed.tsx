@@ -6,14 +6,25 @@ import { useIntersection } from "@mantine/hooks";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { FC, useEffect, useRef, useState } from "react";
-import { useInfiniteQuery } from "react-query";
+import { FC, useEffect, useMemo, useRef, useState } from "react";
+import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
+// import { QueryClient } from "@tanstack/react-query";
 import Post from "../Posts/Post";
 
 import { Category } from "@prisma/client";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import CategoryHeader from "../Categories/CategoryHeader";
 import FeedHeader from "./FeedHeader";
+import {
+  Button,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+  Select,
+  SelectItem,
+  Spinner,
+} from "@nextui-org/react";
 
 interface PostFeedProps {
   initialPosts: ExtendedPost[];
@@ -22,6 +33,8 @@ interface PostFeedProps {
   isSubscribed?: boolean;
   memberCount?: number;
   categoryNames?: string[];
+  tagId?: string;
+  filter?: "desc" | "asc";
 }
 
 const PostFeed: FC<PostFeedProps> = ({
@@ -31,7 +44,11 @@ const PostFeed: FC<PostFeedProps> = ({
   isSubscribed,
   memberCount,
   categoryNames,
+  tagId,
+  filter,
 }) => {
+  const queryClient = useQueryClient();
+
   const lastPostRef = useRef<HTMLElement>(null);
   const { ref, entry } = useIntersection({
     root: lastPostRef.current,
@@ -39,27 +56,47 @@ const PostFeed: FC<PostFeedProps> = ({
   });
   const { data: session } = useSession();
   const pathname = usePathname();
+  const [sortOrder, setSortOrder] = useState<"desc" | "asc">(
+    filter ? filter : "desc"
+  );
+  const [selectedKeys, setSelectedKeys] = useState(new Set(["Newest"]));
+  const selectedValue = useMemo(
+    () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
+    [selectedKeys]
+  );
+
+  const router = useRouter();
+  // console.log(filter);
 
   const [selectedOption, setSelectedOption] = useState(new Set(["merge"]));
+  const queryKey = ["infinite-query"];
+  const { data, fetchNextPage, isFetchingNextPage, refetch, isRefetching } =
+    useInfiniteQuery(
+      queryKey,
+      async ({ pageParam = 1 }) => {
+        const query =
+          `/api/posts?limit=${INFINITE_SCROLLING_PAGINATION_RESULTS}&page=${pageParam}` +
+          (!!categoryName ? `&categoryName=${categoryName}` : "") +
+          (!!tagId ? `&tag=${tagId}` : "") +
+          (!!sortOrder ? `&filter=${sortOrder}` : "");
 
-  const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
-    ["infinite-query"],
-    async ({ pageParam = 1 }) => {
-      const query =
-        `/api/posts?limit=${INFINITE_SCROLLING_PAGINATION_RESULTS}&page=${pageParam}` +
-        (!!categoryName ? `&categoryName=${categoryName}` : "");
+        console.log(query);
 
-      const { data } = await axios.get(query);
-      return data as ExtendedPost[];
-    },
-
-    {
-      getNextPageParam: (_, pages) => {
-        return pages.length + 1;
+        const { data } = await axios.get(query);
+        return data as ExtendedPost[];
       },
-      initialData: { pages: [initialPosts], pageParams: [1] },
-    }
-  );
+
+      {
+        getNextPageParam: (_, pages) => {
+          return pages.length + 1;
+        },
+        initialData: { pages: [initialPosts], pageParams: [1] },
+      }
+    );
+
+  const handleRefetch = async () => {
+    await queryClient.refetchQueries({ queryKey: queryKey });
+  };
 
   useEffect(() => {
     if (entry?.isIntersecting) {
@@ -69,19 +106,63 @@ const PostFeed: FC<PostFeedProps> = ({
 
   const posts = data?.pages.flatMap((page) => page) ?? initialPosts;
 
+  // Wywoływana po kliknięciu przycisków sortowania
+  const handleSort = (order: "desc" | "asc") => {
+    setSortOrder(order);
+    console.log(sortOrder);
+    refetch();
+  };
+
   return (
-    <div className="mt-6 md:p-2 gap-6 pt-6 flex  flex-row min-w-1 flex-grow">
+    <div className="mt-6 md:p-2 gap-6 pt-8 flex  flex-row min-w-1 flex-grow">
       {/* Card Section Top */}
       <div className="flex flex-col gap-2 w-full px-4 md:px-4 lg:px-8">
-        {categoryName ? <CategoryHeader categoryName={categoryName} /> : null}
-        <FeedHeader
-          subCategoriesNames={categoryNames ? categoryNames : null}
-          href={
-            pathname === `/blog/category/${categoryName}`
-              ? `/blog/category/${categoryName}/submit`
-              : ``
-          }
-        />
+        {session?.user.role === "ADMIN" && (
+          <FeedHeader
+            subCategoriesNames={categoryNames ? categoryNames : null}
+            href={
+              pathname === `/blog/category/${categoryName}`
+                ? `/blog/category/${categoryName}/submit`
+                : ``
+            }
+          />
+        )}
+
+        <div className="flex justify-between">
+          <div>
+            {categoryName ? (
+              <CategoryHeader categoryName={categoryName} />
+            ) : (
+              <CategoryHeader categoryName="Feed" />
+            )}
+          </div>
+
+          <Dropdown>
+            <DropdownTrigger className="bg-transparent border-2 border-default-200">
+              <Button>{selectedValue}</Button>
+            </DropdownTrigger>
+
+            <DropdownMenu
+              disallowEmptySelection
+              selectionMode="single"
+              selectedKeys={selectedKeys}
+              onSelectionChange={(keys: any) => setSelectedKeys(keys)}
+            >
+              <DropdownItem key="Newest" onClick={() => handleSort("desc")}>
+                Newest
+              </DropdownItem>
+              <DropdownItem key="Oldest" onClick={() => handleSort("asc")}>
+                Oldest
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </div>
+
+        {isRefetching && (
+          <>
+            <Spinner color="default" />
+          </>
+        )}
 
         <div className="grid grid-cols-1 gap-6 justify-center w-full">
           {posts.map((post, index) => {
@@ -133,6 +214,11 @@ const PostFeed: FC<PostFeedProps> = ({
               );
             }
           })}
+          {isFetchingNextPage && (
+            <div className="flex justify-center">
+              <Spinner color="default" />
+            </div>
+          )}
         </div>
       </div>
     </div>

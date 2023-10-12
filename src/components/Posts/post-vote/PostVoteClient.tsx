@@ -6,7 +6,7 @@ import { VoteType } from "@prisma/client";
 import axios, { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import PostVoteButton from "./PostVoteButton";
 
 interface PostVoteClientProps {

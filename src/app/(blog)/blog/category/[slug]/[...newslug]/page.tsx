@@ -13,13 +13,25 @@ import toast from "react-hot-toast";
 interface pageProps {
   params: {
     slug: string;
+    newslug: [];
   };
 }
 
 const page: FC<pageProps> = async ({ params }) => {
-  const { slug } = params;
+  const { slug, newslug } = params;
   const encodedSlug = encodeURIComponent(slug);
-  console.log(encodedSlug);
+  console.log("newslug", newslug);
+
+  let filter = "";
+
+  newslug.forEach((word) => {
+    console.log("word", word);
+    if (word === "asc") {
+      filter = "asc";
+    } else if (word === "desc") {
+      filter = "desc";
+    }
+  });
 
   const session = await getAuthSession();
   const category = await db.category.findFirst({
@@ -81,6 +93,7 @@ const page: FC<pageProps> = async ({ params }) => {
     return notFound();
   }
 
+  console.log("filter", filter);
   return (
     <>
       <div className="grow">
@@ -92,6 +105,7 @@ const page: FC<pageProps> = async ({ params }) => {
             categoryNames={names}
             isSubscribed={isSubscribed}
             memberCount={memberCount}
+            filter={filter === "asc" ? filter : "desc"}
           />
         </Suspense>
       </div>

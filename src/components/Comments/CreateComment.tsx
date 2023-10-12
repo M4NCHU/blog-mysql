@@ -6,7 +6,7 @@ import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { FC, useState } from "react";
 import toast from "react-hot-toast";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import CommentsButtons from "./CommentsButtons";
 
 interface CreateCommentProps {

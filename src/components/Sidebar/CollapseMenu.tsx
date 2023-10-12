@@ -15,12 +15,12 @@ export const CollapseItems = ({
   isCollapseMenuOpen,
 }: Props) => {
   const [open, setOpen] = useState(false);
-  const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set(["1"]));
+  const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set([title]));
 
   return (
     <div className="flex gap-4 h-full items-center cursor-pointer">
       <Accordion
-        selectedKeys={isCollapseMenuOpen ? selectedKeys : new Set<string>()}
+        selectedKeys={isCollapseMenuOpen ? selectedKeys : ""}
         onSelectionChange={(keys) => setSelectedKeys(keys)}
         className="px-0"
         motionProps={{
@@ -61,7 +61,7 @@ export const CollapseItems = ({
         }}
       >
         <AccordionItem
-          key="1"
+          key={title}
           classNames={{
             indicator: "data-[open=true]:-rotate-180",
             trigger:

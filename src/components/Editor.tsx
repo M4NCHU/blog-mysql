@@ -46,7 +46,7 @@ const Editor: FC<EditorProps> = ({ categoryId }) => {
   const router = useRouter();
   const [isPrivatePost, setIsPrivatePost] = useState<boolean>(false);
   const [tags, setTags] = useState<PostTagRequest[]>([]);
-  const [tagInputValue, setTagInputValue] = useState("");
+  const [tagInputValue, setTagInputValue] = useState<string>("");
 
   const initializeEditor = useCallback(async () => {
     const EditorJS = (await import("@editorjs/editorjs")).default;
@@ -214,7 +214,7 @@ const Editor: FC<EditorProps> = ({ categoryId }) => {
 
   const handleInputKeyPress = (event: any) => {
     let tagResult = tagInputValue.trim();
-    if (event.key === " " && tagInputValue.trim() !== "") {
+    if ((event.key === "Spacebar" || event.key === " ") && tagResult !== "") {
       if (tagResult.length <= 2) {
         setTagInputValue("");
         toast.error("Tag name is too short");
@@ -241,52 +241,6 @@ const Editor: FC<EditorProps> = ({ categoryId }) => {
       className="w-full"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="flex flex-col gap-6 mb-12">
-        <Select
-          defaultSelectedKeys={["false"]}
-          name="isPrivate"
-          id=""
-          size="sm"
-          typeof="text"
-          className="w-full md:w-1/2 "
-          label="Select visibility"
-          value={isPrivatePost.toString()}
-          onChange={handleSelectChange}
-        >
-          <SelectItem key="false" value="false">
-            Public
-          </SelectItem>
-          <SelectItem key="true" value="true">
-            Private
-          </SelectItem>
-        </Select>
-
-        <Input
-          placeholder="Enter tags"
-          className="w-full"
-          value={tagInputValue}
-          defaultValue="junior@nextui.org"
-          onChange={handleInputChange}
-          onKeyPress={handleInputKeyPress}
-        />
-        <div className="tags gap-2 flex flex-row flex-wrap">
-          {tags.map((tag, index) => (
-            <span
-              key={index}
-              className="tag bg-default-100 pl-2 flex flex-row items-center gap-2 rounded-full"
-            >
-              {tag.title}{" "}
-              <button
-                type="button"
-                onClick={() => handleTagDelete(tag.title)}
-                className="tag-delete rounded-full w-[2rem] h-[2rem] flex items-center justify-center hover:bg-default-200"
-              >
-                x
-              </button>
-            </span>
-          ))}
-        </div>
-      </div>
       <div className="w-full p-4 bg-background rounded-lg border border-zinc-200">
         <div className="">
           <TextareaAutosize
@@ -308,6 +262,59 @@ const Editor: FC<EditorProps> = ({ categoryId }) => {
             to open the command menu.
           </p>
         </div>
+      </div>
+      <div className="flex flex-col gap-4 mt-12">
+        <Input
+          placeholder="Enter tags"
+          className="w-full md:w-1/2"
+          value={tagInputValue}
+          label="tags (press spacebar to enter another tag)"
+          type="text"
+          labelPlacement="outside"
+          defaultValue="junior@nextui.org"
+          onChange={handleInputChange}
+          onKeyPress={handleInputKeyPress}
+          startContent={
+            <div className="pointer-events-none flex items-center">
+              <span className="text-default-400 text-small">#</span>
+            </div>
+          }
+        />
+        <div className="tags gap-2 flex flex-row flex-wrap">
+          {tags.map((tag, index) => (
+            <span
+              key={index}
+              className="tag bg-default-100 pl-2 flex flex-row items-center gap-2 rounded-full"
+            >
+              {tag.title}{" "}
+              <button
+                type="button"
+                onClick={() => handleTagDelete(tag.title)}
+                className="tag-delete rounded-full w-[2rem] h-[2rem] flex items-center justify-center hover:bg-default-200"
+              >
+                x
+              </button>
+            </span>
+          ))}
+        </div>
+        <Select
+          defaultSelectedKeys={["false"]}
+          name="isPrivate"
+          id=""
+          size="sm"
+          typeof="text"
+          className="w-full md:w-1/2 "
+          label="Select visibility"
+          value={isPrivatePost.toString()}
+          onChange={handleSelectChange}
+        >
+          <SelectItem key="false" value="false">
+            Public
+          </SelectItem>
+          <SelectItem key="true" value="true">
+            Private
+          </SelectItem>
+        </Select>
       </div>
     </form>
   );

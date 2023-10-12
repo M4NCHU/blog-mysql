@@ -13,7 +13,7 @@ import { useRouter } from "next/navigation";
 import { FC, startTransition, useState } from "react";
 import toast from "react-hot-toast";
 import { MdOutlineAdminPanelSettings, MdPublic } from "react-icons/md";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 
 interface UpdatePostStatusProps {
   isPrivate: boolean;

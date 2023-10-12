@@ -16,6 +16,7 @@ import { Suspense } from "react";
 import { AiOutlineArrowDown, AiOutlineArrowUp } from "react-icons/ai";
 import PostHeader from "@/components/Posts/PostHeader";
 import { getAuthSession } from "@/lib/auth";
+import TagList from "@/components/Posts/tags/TagList";
 
 interface CategoryPostPageProps {
   params: {
@@ -58,6 +59,8 @@ const CategoryPostPage = async ({ params }: CategoryPostPageProps) => {
       tag: true,
     },
   });
+
+  const tag = tagsList.map((item) => item.tag?.id);
 
   if (!post && !cachedPost) return notFound();
 
@@ -119,16 +122,7 @@ const CategoryPostPage = async ({ params }: CategoryPostPageProps) => {
             />
           </Suspense>
         </div>
-        <div className="tags-list flex flex-row gap-2">
-          {tagsList.map((item, i) => (
-            <button
-              key={i}
-              className="px-2 py-1 bg-backgroundSecond rounded-lg"
-            >
-              {item.tag?.name}
-            </button>
-          ))}
-        </div>
+        <TagList tagList={tagsList} />
       </div>
       <CommentsSection postId={post?.id ?? cachedPost.id} />
     </div>

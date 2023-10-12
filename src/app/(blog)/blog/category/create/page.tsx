@@ -8,7 +8,7 @@ import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 
 const Page = () => {
   const router = useRouter();
@@ -42,6 +42,7 @@ const Page = () => {
     },
     onSuccess: (data) => {
       router.push(`/blog/category/${data}`);
+      router.refresh();
     },
   });
 

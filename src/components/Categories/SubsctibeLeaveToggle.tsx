@@ -6,7 +6,7 @@ import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { FC, startTransition } from "react";
 import toast from "react-hot-toast";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 
 interface SubscribeLeaveToggleProps {
   categoryId: string;

@@ -47,38 +47,10 @@ export const SidebarWrapper = ({ category, session }: SidebarWrapperProps) => {
   };
 
   useEffect(() => {
-    const sidebarClickAction = sidebarRef.current?.querySelectorAll("a");
-    if (sidebarClickAction) {
-      sidebarClickAction.forEach((a) => {
-        a.addEventListener("click", closeSidebarOnLinkClick);
-      });
+    if (isSidebarOpen && sidebarRef.current) {
+      setIsSidebarOpen();
     }
-
-    // Dodaj event listener do całej strony, który będzie zamykał sidebar po kliknięciu poza jego obszarem
-    const closeSidebarOnOutsideClick = (e: any) => {
-      if (
-        isSidebarOpen &&
-        sidebarRef.current &&
-        !sidebarRef.current.contains(e.target)
-      ) {
-        setIsSidebarOpen();
-      }
-    };
-
-    // Nasłuchuj na zdarzenia kliknięcia na całej stronie
-    document.addEventListener("click", closeSidebarOnOutsideClick);
-
-    // Warto usunąć nasłuchiwanie zdarzeń, gdy komponent jest oczyszczany
-    return () => {
-      if (sidebarClickAction) {
-        sidebarClickAction.forEach((a) => {
-          a.removeEventListener("click", closeSidebarOnLinkClick);
-        });
-      }
-      // Usuń event listener po zniszczeniu komponentu
-      document.removeEventListener("click", closeSidebarOnOutsideClick);
-    };
-  }, [isSidebarOpen]);
+  }, [pathname]);
 
   const socials = [
     {
@@ -88,6 +60,13 @@ export const SidebarWrapper = ({ category, session }: SidebarWrapperProps) => {
     {
       title: "LinkedIn",
       icon: <AiFillLinkedin />,
+    },
+  ];
+
+  const categoryLinks = [
+    {
+      name: "create category +",
+      link: "/blog/category/create",
     },
   ];
 
@@ -121,7 +100,11 @@ export const SidebarWrapper = ({ category, session }: SidebarWrapperProps) => {
                   href="/blog"
                 />
               </SidebarSection>
-              <SidebarSection title="categories">
+              <SidebarSection
+                title="categories"
+                links={categoryLinks}
+                session={session?.user.id}
+              >
                 <CollapseItems
                   isCollapseMenuOpen={true}
                   icon={<MdDeveloperMode />}
@@ -215,7 +198,7 @@ export const SidebarWrapper = ({ category, session }: SidebarWrapperProps) => {
           ></div>
           <Button
             isIconOnly
-            className="fixed top-5 right-5 bg-background opacity-100 z-[9990]"
+            className="fixed top-5 right-4 bg-background opacity-100 z-[9990]"
           >
             <MdClose />
           </Button>

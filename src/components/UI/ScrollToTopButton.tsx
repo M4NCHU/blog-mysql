@@ -43,7 +43,7 @@ const ScrollToTopButton = ({
           onClick={scrollToTop}
           className={`fixed ${
             bottom ? bottom : "bottom-4"
-          } right-4 bg-default-100 hover:bg-default-200 text-foreground rounded-full p-2 hover:bg-primary-dark transition-colors duration-300`}
+          } right-4 bg-default-100 hover:bg-default-200 text-foreground rounded-full p-2 hover:bg-primary-dark transition-colors duration-300 z-[9999]`}
         >
           <FaArrowUp size={24} />
         </button>

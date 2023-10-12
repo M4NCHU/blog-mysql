@@ -8,7 +8,7 @@ import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 
 type PartialVote = Pick<CommentVote, "type">;
 

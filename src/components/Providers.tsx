@@ -5,7 +5,13 @@ import { NextUIProvider } from "@nextui-org/react";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { FC } from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 
 interface ProvidersProps {
   children: React.ReactNode;

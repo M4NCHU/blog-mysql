@@ -1,6 +1,6 @@
 "use client";
 
-import { formatTimeToNow } from "@/lib/utils";
+import { formatTimeToNow, getNiceDate } from "@/lib/utils";
 import { Button } from "@nextui-org/react";
 import { Category } from "@prisma/client";
 import { FC } from "react";
@@ -11,6 +11,7 @@ interface CategoryCardProps {
   category: Category;
   isSubscribed?: boolean;
   memberCount?: number;
+  postCount?: number;
   sessionId: string | undefined;
 }
 
@@ -19,7 +20,10 @@ const CategoryCard: FC<CategoryCardProps> = ({
   isSubscribed,
   memberCount,
   sessionId,
+  postCount,
 }) => {
+  const date = getNiceDate(category.createdAt);
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-row justify-between items-center border-b-1 border-default-100 pb-2">
@@ -48,26 +52,21 @@ const CategoryCard: FC<CategoryCardProps> = ({
             </p>
           )}
         </div>
-
-        <div className="px-2 flex flex-row flex-nowrap">
-          <p className="flex flex-row flex-nowrap">
-            {formatTimeToNow(new Date(category.createdAt))}
-          </p>
-        </div>
       </div>
-      <div className="category-stats flex flex-row justify-center gap-8 pb-2">
+      <div className="category-stats flex flex-row justify-center gap-8 border-b-1 border-default-100 pb-2">
         <div className="flex flex-col items-center">
-          <p>12</p>
+          <p>{postCount}</p>
           <span>posts</span>
         </div>
         <div className="flex flex-col items-center">
           <p>{memberCount}</p>
           <span>followers</span>
         </div>
-        <div className="flex flex-col items-center">
-          <p>12</p>
-          <span>posts</span>
-        </div>
+      </div>
+
+      <div className="px-2 flex flex-row justify-between flex-nowrap">
+        <p>Created at:</p>
+        <p className="flex flex-row flex-nowrap">{date}</p>
       </div>
     </div>
   );

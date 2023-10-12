@@ -16,6 +16,7 @@ import { MdClose } from "react-icons/md";
 import { useSidebar } from "@/context/SidebarContext";
 import RoundedBtn from "../UI/RoundedBtn";
 import RoundedBtnWithClick from "../UI/RoundedBtnWithClick";
+import { usePathname } from "next/navigation";
 
 interface HeaderProps {
   session: Session | null;
@@ -26,6 +27,7 @@ const Header: FC<HeaderProps> = ({ session }) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const navbarRef = useRef<HTMLDivElement>(null);
   const { isSidebarOpen, setIsSidebarOpen } = useSidebar();
+  const pathname = usePathname();
 
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -36,39 +38,8 @@ const Header: FC<HeaderProps> = ({ session }) => {
   };
 
   useEffect(() => {
-    const navbarClickAction =
-      navbarRef.current?.querySelectorAll("a.menu-link");
-    if (navbarClickAction) {
-      navbarClickAction.forEach((a: any) => {
-        a.addEventListener("click", closeNav);
-      });
-    }
-
-    // Dodaj event listener do całej strony, który będzie zamykał Nav po kliknięciu poza jego obszarem
-    const closeNavOnOutsideClick = (e: any) => {
-      if (
-        isNavOpen &&
-        navbarRef.current &&
-        !navbarRef.current.contains(e.target)
-      ) {
-        closeNav();
-      }
-    };
-
-    // Nasłuchuj na zdarzenia kliknięcia na całej stronie
-    document.addEventListener("click", closeNavOnOutsideClick);
-
-    // Warto usunąć nasłuchiwanie zdarzeń, gdy komponent jest oczyszczany
-    return () => {
-      if (navbarClickAction) {
-        navbarClickAction.forEach((a) => {
-          a.removeEventListener("click", closeNav);
-        });
-      }
-      // Usuń event listener po zniszczeniu komponentu
-      document.removeEventListener("click", closeNavOnOutsideClick);
-    };
-  }, [isNavOpen]);
+    closeNav();
+  }, [pathname]);
 
   const menuItems = [
     "Profile",

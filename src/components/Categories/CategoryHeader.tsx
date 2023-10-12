@@ -8,7 +8,7 @@ const CategoryHeader: FC<CategoryHeaderProps> = ({ categoryName }) => {
   return (
     <>
       <div className="mb-4">
-        <h1 className="text-2xl">{categoryName}</h1>
+        <h1 className="text-2xl font-semibold">{categoryName}</h1>
       </div>
     </>
   );

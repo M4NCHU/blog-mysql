@@ -10,7 +10,7 @@ import axios, { AxiosError } from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import CommentVotes from "./CommentVotes";
 import CommentsButtons from "./CommentsButtons";
 

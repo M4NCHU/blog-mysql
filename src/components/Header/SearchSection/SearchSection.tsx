@@ -17,7 +17,7 @@ import axios from "axios";
 import debounce from "lodash.debounce";
 import { usePathname, useRouter } from "next/navigation";
 import { BiSearch } from "react-icons/bi";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 // import Link from 'next/link';
 
