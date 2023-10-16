@@ -1,3 +1,5 @@
+"use client";
+
 import { FC } from "react";
 import ResumeHeader from "./ResumeHeader";
 import { FaFootballBall } from "react-icons/fa";

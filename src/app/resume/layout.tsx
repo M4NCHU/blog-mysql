@@ -1,5 +1,4 @@
 import BlogRightWrapper from "@/components/BlogRight/BlogRightWrapper";
-import CardWrapper from "@/components/BlogRight/CardWrapper";
 import SidebarOpenBtn from "@/components/Sidebar/SidebarOpenBtn";
 import SidebarResume from "@/components/Sidebar/SidebarResume";
 import { SidebarWrapper } from "@/components/Sidebar/sidebar";
@@ -9,16 +8,15 @@ import { db } from "@/lib/db";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Profile",
-  description: "Profile",
+  title: "Resume",
+  description: "Resume",
 };
 
 interface RootLayoutProps {
   children: React.ReactNode;
-  authModal: React.ReactNode;
 }
 
-export default async function Layout({ children, authModal }: RootLayoutProps) {
+export default async function Layout({ children }: RootLayoutProps) {
   const session = await getAuthSession();
 
   const category = await db.category.findMany();
