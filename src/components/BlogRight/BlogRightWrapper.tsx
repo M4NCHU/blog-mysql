@@ -9,11 +9,11 @@ interface BlogRightWrapperProps {
 const BlogRightWrapper: FC<BlogRightWrapperProps> = ({ children }) => {
   return (
     <div
-      className="min-w-[24rem] hidden xl:block"
+      className="min-w-[24rem] h-full w-[24rem] hidden xl:block relative"
       style={{ minHeight: "calc(100vh - 4rem)" }}
     >
       <div
-        className=" bg-background p-4 sticky top-[4rem] border-l-1 border-default-100"
+        className="  p-4 sticky top-[4rem] flex flex-col gap-4 border-l-1 border-default-100"
         style={{ minHeight: "calc(100vh - 4rem)" }}
       >
         {children}

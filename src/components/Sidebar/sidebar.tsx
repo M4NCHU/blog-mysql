@@ -30,9 +30,14 @@ import SidebarSection from "./SidebarSection";
 interface SidebarWrapperProps {
   category?: Category[];
   session: Session | null;
+  children: React.ReactNode;
 }
 
-export const SidebarWrapper = ({ category, session }: SidebarWrapperProps) => {
+export const SidebarWrapper = ({
+  category,
+  session,
+  children,
+}: SidebarWrapperProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const { isSidebarOpen, setIsSidebarOpen } = useSidebar();
@@ -52,24 +57,6 @@ export const SidebarWrapper = ({ category, session }: SidebarWrapperProps) => {
     }
   }, [pathname]);
 
-  const socials = [
-    {
-      title: "GitHub",
-      icon: <AiFillGithub />,
-    },
-    {
-      title: "LinkedIn",
-      icon: <AiFillLinkedin />,
-    },
-  ];
-
-  const categoryLinks = [
-    {
-      name: "create category +",
-      link: "/blog/category/create",
-    },
-  ];
-
   return (
     <>
       <div
@@ -81,90 +68,12 @@ export const SidebarWrapper = ({ category, session }: SidebarWrapperProps) => {
         }`}
       >
         <aside
-          className="relative z-[202] lg:sticky top-[4rem] p-4"
+          className="relative z-[202]   lg:sticky top-0 h-full md:top-[4rem] p-4"
           style={{ height: "calc(100vh - 4rem)" }}
         >
-          <div className="flex flex-col justify-between gap-4 h-full">
-            <div className="flex flex-col">
-              <SidebarSection>
-                <SidebarItem
-                  title="Home"
-                  icon={<AiFillHome />}
-                  isActive={pathname === "/"}
-                  href="/"
-                />
-                <SidebarItem
-                  title="Blog"
-                  icon={<ImBlogger />}
-                  isActive={pathname === "/blog"}
-                  href="/blog"
-                />
-              </SidebarSection>
-              <SidebarSection
-                title="categories"
-                links={categoryLinks}
-                session={session?.user.id}
-              >
-                <CollapseItems
-                  isCollapseMenuOpen={true}
-                  icon={<MdDeveloperMode />}
-                  title="Popular"
-                >
-                  {category
-                    ? category.map((item, i) => (
-                        <CollapseItem
-                          key={i}
-                          href={`/blog/category/${item.name}`}
-                          isActive={pathname === `/blog/category/${item.name}`}
-                          title={item.name}
-                          icon={<AiFillPayCircle />}
-                        >
-                          <></>
-                        </CollapseItem>
-                      ))
-                    : null}
-
-                  <Link href={"/"} className="text-sm pt-4">
-                    See more
-                  </Link>
-                </CollapseItems>
-              </SidebarSection>
-
-              <SidebarSection title="About me">
-                <CollapseItems
-                  isCollapseMenuOpen={false}
-                  icon={<MdDeveloperMode />}
-                  title="developer"
-                >
-                  {socials
-                    ? socials.map((item, i) => (
-                        <CollapseItem
-                          key={i}
-                          href={`/blog/category/${item.title}`}
-                          isActive={pathname === `/blog/category/${item.title}`}
-                          title={item.title}
-                          icon={item.icon}
-                        >
-                          <></>
-                        </CollapseItem>
-                      ))
-                    : null}
-                </CollapseItems>
-              </SidebarSection>
-              <SidebarSection title="Others">
-                <SidebarItem
-                  isActive={pathname === "/changelog"}
-                  title="News"
-                  icon={<BiNews />}
-                />
-                <SidebarItem
-                  isActive={pathname === "/settings"}
-                  title="Settings"
-                  icon={<FiSettings />}
-                />
-              </SidebarSection>
-            </div>
-            <div className="flex flex-row gap-4 items-center justify-center">
+          <div className="flex flex-col overflow-auto h-full justify-between gap-4">
+            <div className="flex flex-col grow">{children}</div>
+            {/* <div className="flex flex-row gap-4 items-center justify-center">
               <SidebarBottomItem
                 onClick={() => {}}
                 icon={<FiSettings />}
@@ -173,7 +82,7 @@ export const SidebarWrapper = ({ category, session }: SidebarWrapperProps) => {
 
               {/* <SidebarBottomItem icon={<FiSettings />} title="Settings" /> */}
 
-              <Tooltip content={"Profile"} color="primary">
+            {/* <Tooltip content={"Profile"} color="primary">
                 {session && (
                   <Avatar
                     src={session.user.image ? session.user.image : ""}
@@ -181,8 +90,8 @@ export const SidebarWrapper = ({ category, session }: SidebarWrapperProps) => {
                     size="md"
                   />
                 )}
-              </Tooltip>
-            </div>
+              </Tooltip> */}
+            {/* </div>  */}
           </div>
         </aside>
       </div>

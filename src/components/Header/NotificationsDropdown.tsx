@@ -1,3 +1,6 @@
+"use client";
+
+import { PostWithUser } from "@/types/db";
 import {
   Button,
   Dropdown,
@@ -6,10 +9,17 @@ import {
   DropdownSection,
   DropdownTrigger,
 } from "@nextui-org/react";
+import { Post, User } from "@prisma/client";
 
 import { IoIosNotificationsOutline } from "react-icons/io";
 
-export const NotificationsDropdown = () => {
+interface NotificationsDropdownProps {
+  notifications: PostWithUser[] | null;
+}
+
+export const NotificationsDropdown = ({
+  notifications,
+}: NotificationsDropdownProps) => {
   return (
     <Dropdown placement="bottom-end">
       <DropdownTrigger>
@@ -22,37 +32,23 @@ export const NotificationsDropdown = () => {
       </DropdownTrigger>
 
       <DropdownMenu className="w-80" aria-label="Avatar Actions">
-        <DropdownSection title="Notificacions">
-          <DropdownItem
-            classNames={{
-              base: "py-2",
-              title: "text-base font-semibold",
-            }}
-            key="1"
-            description="Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim."
-          >
-            📣 Edit your information
-          </DropdownItem>
-          <DropdownItem
-            key="2"
-            classNames={{
-              base: "py-2",
-              title: "text-base font-semibold",
-            }}
-            description="Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim."
-          >
-            🚀 Say goodbye to paper receipts!
-          </DropdownItem>
-          <DropdownItem
-            key="3"
-            classNames={{
-              base: "py-2",
-              title: "text-base font-semibold",
-            }}
-            description="Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim."
-          >
-            📣 Edit your information
-          </DropdownItem>
+        <DropdownSection title="Latest posts (7 days)">
+          {notifications ? (
+            notifications.map((item, i) => (
+              <DropdownItem
+                classNames={{
+                  base: "py-2",
+                  title: "text-base font-semibold",
+                }}
+                key={i}
+                description={item.author.name}
+              >
+                {item.title}
+              </DropdownItem>
+            ))
+          ) : (
+            <p>Nothing to read</p>
+          )}
         </DropdownSection>
       </DropdownMenu>
     </Dropdown>

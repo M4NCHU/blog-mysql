@@ -12,7 +12,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useMutation } from "react-query";
+import { useMutation } from "@tanstack/react-query";
 import TextareaAutosize from "react-textarea-autosize";
 import { z } from "zod";
 

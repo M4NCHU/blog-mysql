@@ -3,7 +3,7 @@ export const metadata = {
   description: "Account settings",
 };
 
-import UserNameSettings from "@/components/Settings/UserNameSettings";
+import UserNameSettings from "@/components/Forms/Settings/UserNameSettings";
 import { authOptions, getAuthSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
@@ -17,7 +17,10 @@ const page = async ({}) => {
   }
 
   return (
-    <div>
+    <div className="grow flex flex-col pt-12 px-4 gap-4">
+      <div className="Settings-header">
+        <h1 className="font-semibold text-xl">Settings</h1>
+      </div>
       <UserNameSettings
         user={{
           id: session.user.id,

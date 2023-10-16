@@ -25,6 +25,7 @@ import {
   SelectItem,
   Spinner,
 } from "@nextui-org/react";
+import { FaRegSadCry } from "react-icons/fa";
 
 interface PostFeedProps {
   initialPosts: ExtendedPost[];
@@ -165,55 +166,61 @@ const PostFeed: FC<PostFeedProps> = ({
         )}
 
         <div className="grid grid-cols-1 gap-6 justify-center w-full">
-          {posts.map((post, index) => {
-            const votesAmt = post.votes.reduce((acc, vote) => {
-              if (vote.type === "UP") return acc + 1;
-              if (vote.type === "DOWN") return acc - 1;
-              return acc;
-            }, 0);
+          {posts.length > 0
+            ? posts.map((post, index) => {
+                const votesAmt = post.votes.reduce((acc, vote) => {
+                  if (vote.type === "UP") return acc + 1;
+                  if (vote.type === "DOWN") return acc - 1;
+                  return acc;
+                }, 0);
 
-            const currentVote = post.votes.find(
-              (vote) => vote.userId === session?.user.id
-            );
+                const currentVote = post.votes.find(
+                  (vote) => vote.userId === session?.user.id
+                );
 
-            if (index === posts.length - 1) {
-              return (
-                <Link
-                  key={post.id}
-                  href={`/blog/category/${categoryName}/post/${post.id}`}
-                  className="text-foreground"
-                >
-                  <div ref={ref} className="">
-                    <Post
-                      post={post}
-                      commentAmt={post.comments.length}
-                      categoryName={post.category.name}
-                      votesAmt={votesAmt}
-                      currentVote={currentVote}
-                      role={session?.user.role}
-                    />
-                  </div>
-                </Link>
-              );
-            } else {
-              return (
-                <Link
-                  key={post.id}
-                  href={`/blog/category/${categoryName}/post/${post.id}`}
-                  className="text-foreground"
-                >
-                  <Post
-                    post={post}
-                    commentAmt={post.comments.length}
-                    categoryName={post.category.name}
-                    votesAmt={votesAmt}
-                    currentVote={currentVote}
-                    role={session?.user.role}
-                  />
-                </Link>
-              );
-            }
-          })}
+                if (index === posts.length - 1) {
+                  return (
+                    <Link
+                      key={post.id}
+                      href={`/blog/category/${categoryName}/post/${post.id}`}
+                      className="text-foreground"
+                    >
+                      <div ref={ref} className="">
+                        <Post
+                          post={post}
+                          commentAmt={post.comments.length}
+                          categoryName={post.category.name}
+                          votesAmt={votesAmt}
+                          currentVote={currentVote}
+                          role={session?.user.role}
+                        />
+                      </div>
+                    </Link>
+                  );
+                } else {
+                  return (
+                    <Link
+                      key={post.id}
+                      href={`/blog/category/${categoryName}/post/${post.id}`}
+                      className="text-foreground"
+                    >
+                      <Post
+                        post={post}
+                        commentAmt={post.comments.length}
+                        categoryName={post.category.name}
+                        votesAmt={votesAmt}
+                        currentVote={currentVote}
+                        role={session?.user.role}
+                      />
+                    </Link>
+                  );
+                }
+              })
+            : !isRefetching && (
+                <div className="w-full bg-backgroundSecond rounded-lg p-4 flex flex-row gap-2 items-center">
+                  There is nothing to read <FaRegSadCry />
+                </div>
+              )}
           {isFetchingNextPage && (
             <div className="flex justify-center">
               <Spinner color="default" />

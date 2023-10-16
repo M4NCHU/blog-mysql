@@ -74,32 +74,38 @@ const LandingPage: FC<LandingPageProps> = ({}) => {
       <div className="portfolio-landing__photo flex justify-center items-center w-full py-8 md:py-20 lg:w-2/5 relative p-2 ">
         <div className="relative">
           <Image
+            priority={true}
             src={TailWind}
             alt="adsf"
             className=" absolute z-[50] right-0 bottom-0 w-1/6 "
           />
           <Image
+            priority={true}
             src={ReactImg}
             alt="adsf"
             className=" absolute z-[50] right-0 w-2/6  "
           />
           <Image
+            priority={true}
             src={JS}
             alt="adsf"
             className=" absolute z-[50] top-0 left-0 w-1/4 "
           />
           <Image
+            priority={true}
             src={WEB}
             alt="adsf"
             className=" absolute z-[50] -bottom-4 -right-10 left-0 w-1/2 "
           />
           <Image
+            priority={true}
             src={Circle}
             alt="adsf"
             className=" absolute z-[50] -bottom-4 -right-10 left-0 w-1/2 "
           />
           <div className="w-[14rem] h-[14rem] md:w-[16rem] md:h-[16rem] lg:w-[20rem] lg:h-[20rem]  rounded-full overflow-hidden  ">
             <Image
+              priority={true}
               src={profileImage}
               alt="Profile image"
               className="w-full h-full"

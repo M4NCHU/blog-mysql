@@ -2,7 +2,7 @@
 
 import { UsernameRequest, UsernameValidator } from "@/lib/validators/username";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Input } from "@nextui-org/react";
+import { Button, Input, Spinner } from "@nextui-org/react";
 import { User } from "@prisma/client";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
@@ -10,6 +10,7 @@ import { FC } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
+import { BsCheck2 } from "react-icons/bs";
 
 interface UserNameSettingsProps {
   user: Pick<User, "id" | "username">;
@@ -29,11 +30,11 @@ const UserNameSettings: FC<UserNameSettingsProps> = ({ user }) => {
     },
   });
 
-  const { mutate: changeUsername } = useMutation({
+  const { mutate: changeUsername, isLoading } = useMutation({
     mutationFn: async ({ name }: UsernameRequest) => {
       const payload: UsernameRequest = { name };
 
-      const { data } = await axios.patch(`api/username`, payload);
+      const { data } = await axios.patch(`/api/usersettings/username`, payload);
       return data;
     },
     onError: (err) => {
@@ -63,13 +64,22 @@ const UserNameSettings: FC<UserNameSettingsProps> = ({ user }) => {
       onSubmit={handleSubmit((e) => {
         changeUsername(e);
       })}
+      className="flex flex-row items-center gap-2"
     >
-      <p>Username</p>
       <Input {...register("name")} />
+      <Button isIconOnly type="submit" className="bg-default-100">
+        {isLoading ? (
+          <Spinner
+            size="sm"
+            color="default"
+            className="text-default-100 text-sm"
+          />
+        ) : (
+          <BsCheck2 />
+        )}
+      </Button>
 
       {errors?.name && <p>{errors.name.message}</p>}
-
-      <Button type="submit">Change name</Button>
     </form>
   );
 };

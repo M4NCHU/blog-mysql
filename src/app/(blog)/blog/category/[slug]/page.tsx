@@ -3,6 +3,7 @@ import CardWrapper from "@/components/BlogRight/CardWrapper";
 import CategoryCard from "@/components/BlogRight/CategoryCard";
 import PostFeed from "@/components/Feed/PostFeed";
 import PostsSkeleton from "@/components/Skeleton/PostsSkeleton";
+import TagList from "@/components/Tags/TagList";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
@@ -76,6 +77,10 @@ const page: FC<pageProps> = async ({ params }) => {
     },
   });
 
+  const tags = await db.tag.findMany({
+    take: 8,
+  });
+
   if (!category) {
     toast.error("Category cannot be found");
     return notFound();
@@ -104,6 +109,10 @@ const page: FC<pageProps> = async ({ params }) => {
             postCount={postCount}
             sessionId={session?.user.id}
           />
+        </CardWrapper>
+        <CardWrapper>
+          <h4 className="font-semibold text-lg mb-2">You may like</h4>
+          <TagList tags={tags} />
         </CardWrapper>
       </BlogRightWrapper>
     </>

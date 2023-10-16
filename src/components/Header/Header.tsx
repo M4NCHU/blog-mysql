@@ -17,16 +17,22 @@ import { useSidebar } from "@/context/SidebarContext";
 import RoundedBtn from "../UI/RoundedBtn";
 import RoundedBtnWithClick from "../UI/RoundedBtnWithClick";
 import { usePathname } from "next/navigation";
+import { Post, User } from "@prisma/client";
+import { PostWithUser } from "@/types/db";
 
 interface HeaderProps {
   session: Session | null;
+  notifications: PostWithUser[] | null;
 }
 
-const Header: FC<HeaderProps> = ({ session }) => {
+type AuthorData = {
+  author: User;
+};
+
+const Header: FC<HeaderProps> = ({ session, notifications }) => {
   const { theme, setTheme } = useTheme();
   const [isNavOpen, setIsNavOpen] = useState(false);
   const navbarRef = useRef<HTMLDivElement>(null);
-  const { isSidebarOpen, setIsSidebarOpen } = useSidebar();
   const pathname = usePathname();
 
   const toggleNav = () => {
@@ -64,8 +70,8 @@ const Header: FC<HeaderProps> = ({ session }) => {
       href: "/blog",
     },
     {
-      title: "About",
-      href: "/About",
+      title: "Resume",
+      href: "/resume",
     },
     {
       title: "Contact",
@@ -96,7 +102,7 @@ const Header: FC<HeaderProps> = ({ session }) => {
             isNavOpen
               ? "fixed top-[4rem] left-0 bg-backgroundSecond p-8 z-[9990]"
               : "hidden"
-          } md:flex flex-col sm:flex-row w-full justify-center sm:w-auto sm:bg-transparent items-center gap-6`}
+          } md:flex flex-col sm:flex-row w-full justify-center sm:w-auto sm:bg-transparent items-center gap-4`}
         >
           {navLinks.map((item, i) => (
             <HeaderLink key={i} title={item.title} href={item.href} />
@@ -127,7 +133,9 @@ const Header: FC<HeaderProps> = ({ session }) => {
           </Button>
         )} */}
 
-          <NotificationsDropdown />
+          <NotificationsDropdown
+            notifications={notifications ? notifications : null}
+          />
 
           {session ? (
             <UserDropdown session={session} />

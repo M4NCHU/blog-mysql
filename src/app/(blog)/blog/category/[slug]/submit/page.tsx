@@ -1,6 +1,7 @@
 import CreatePost from "@/components/Forms/Create/CreatePost";
+import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { FC } from "react";
 
 interface pageProps {
@@ -10,6 +11,12 @@ interface pageProps {
 }
 
 const page: FC<pageProps> = async ({ params }) => {
+  const session = await getAuthSession();
+
+  if (!session || session.user.role !== "ADMIN") {
+    redirect("/blog");
+  }
+
   const category = await db.category.findFirst({
     where: {
       name: params.slug,

@@ -1,4 +1,4 @@
-import { Category, Post, PostTags, Tag } from "@prisma/client";
+import { Category, Post, PostTags, Tag, User } from "@prisma/client";
 
 export type ExtendedPost = Post & {
   category: Category;
@@ -6,4 +6,8 @@ export type ExtendedPost = Post & {
   author: User;
   comments: Comments[];
   tags: PostTags[];
+};
+
+export type PostWithUser = Post & {
+  author: User;
 };
