@@ -24,7 +24,7 @@ export default async function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body className="text-foreground bg-background min-h-screen antialiased my-custom-style">
+      <body className="text-foreground bg-background min-h-screen antialiased my-custom-style min-h-screen">
         <Providers>
           <Toaster />
           <Layout>{children}</Layout>

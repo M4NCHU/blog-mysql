@@ -11,18 +11,42 @@ interface FooterProps {}
 
 const Footer: FC<FooterProps> = ({}) => {
   return (
-    <div className="w-full py-16 bg-backgroundSecond flex justify-center">
+    <footer className="w-full py-16 bg-backgroundSecond flex justify-center ">
       <div className="flex flex-col md:flex-row container">
         <FooterSection>
           <p className="">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi rem
-            quam laborum odit, culpa
+            Web developer with a passion for clean code and creative design.{" "}
+            {`Let's`} build something amazing together!
           </p>
           <div className="flex flex-row items-center">
-            <RoundedBtn icon={<FaFacebook />} />
-            <RoundedBtn icon={<FaGithub />} />
-            <RoundedBtn icon={<FaLinkedin />} />
-            <RoundedBtn icon={<FaTwitter />} />
+            <a
+              href="https://www.facebook.com/maciej.szwast"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <RoundedBtn icon={<FaFacebook />} />
+            </a>
+            <a
+              href="https://github.com/M4NCHU"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <RoundedBtn icon={<FaGithub />} />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/maciej-szwast-189684293/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <RoundedBtn icon={<FaLinkedin />} />
+            </a>
+            <a
+              href="https://twitter.com/MaciejSzwast"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <RoundedBtn icon={<FaTwitter />} />
+            </a>
           </div>
         </FooterSection>
         <FooterSection>
@@ -30,7 +54,7 @@ const Footer: FC<FooterProps> = ({}) => {
             <FooterSectionTitleTitle title="Links" />
             <FooterListItem title="Home" href="/" />
             <FooterListItem title="Blog" href="/blog" />
-            <FooterListItem title="About" href="/about" />
+            <FooterListItem title="About" href="/resume" />
             <FooterListItem title="Contact" href="contact" />
           </FooterList>
         </FooterSection>
@@ -47,7 +71,7 @@ const Footer: FC<FooterProps> = ({}) => {
           </FooterList>
         </FooterSection>
       </div>
-    </div>
+    </footer>
   );
 };
 

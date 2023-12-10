@@ -46,7 +46,7 @@ const SidebarResume: FC<SidebarResumeProps> = ({ category, session }) => {
           </div>
           <div className="user-desc flex justify-center flex-col items-center gap-1">
             <h2 className="font-semibold text-xl">Maciej Szwast</h2>
-            <span className="text-sm text-hoverColor">Frontend Developer</span>
+            <span className="text-sm text-hoverColor">Web Developer</span>
           </div>
         </div>
       </SidebarSection>
@@ -60,7 +60,7 @@ const SidebarResume: FC<SidebarResumeProps> = ({ category, session }) => {
         <SidebarItem
           href="#objective"
           isActive={pathname === "/changelog"}
-          title="555-555-5555"
+          title="793 659 960"
           icon={<AiOutlineMobile />}
         />
       </SidebarSection>

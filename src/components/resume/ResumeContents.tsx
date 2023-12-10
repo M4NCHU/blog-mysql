@@ -90,7 +90,7 @@ const ResumeContents: FC<ResumeContentsProps> = ({}) => {
           {ResumeLinks.map((item, i) => (
             <li key={i}>
               <a
-                href=""
+                href={item.href}
                 className="flex flex-row gap-2 items-center hover:bg-background rounded-lg p-2"
               >
                 {item.icon}
@@ -106,7 +106,7 @@ const ResumeContents: FC<ResumeContentsProps> = ({}) => {
           {Skills.map((item, i) => (
             <li key={i}>
               <a
-                href=""
+                href={item.href}
                 className="flex flex-row gap-2 items-center hover:bg-background rounded-lg p-2"
               >
                 {item.icon}

@@ -9,6 +9,12 @@ import ReactImg from "@/assets/pngwing.png";
 import Success from "@/assets/success.png";
 import TailWind from "@/assets/tailwind.png";
 import WEB from "@/assets/web.png";
+import Csharp from "@/assets/csharp.png";
+import Sql from "@/assets/mysql.png";
+import postgres from "@/assets/postgres.png";
+import python from "@/assets/python.png";
+import java from "@/assets/java.png";
+import next from "@/assets/nextjs.png";
 import Image from "next/image";
 
 interface MySkillsProps {}
@@ -20,40 +26,44 @@ const MySkills: FC<MySkillsProps> = ({}) => {
       icon: ReactImg,
     },
     {
-      title: "react",
+      title: "Node",
       icon: Node,
     },
     {
-      title: "react",
+      title: "JS",
       icon: JS,
     },
     {
-      title: "react",
-      icon: WEB,
+      title: "C#",
+      icon: Csharp,
     },
     {
       title: "react",
       icon: TailWind,
     },
     {
-      title: "react",
+      title: "WEB",
       icon: WEB,
     },
     {
-      title: "react",
-      icon: ReactImg,
+      title: "python",
+      icon: python,
     },
     {
-      title: "react",
-      icon: JS,
+      title: "MySql",
+      icon: Sql,
     },
     {
-      title: "react",
-      icon: ReactImg,
+      title: "postgres",
+      icon: postgres,
     },
     {
-      title: "react",
-      icon: Node,
+      title: "java",
+      icon: java,
+    },
+    {
+      title: "next",
+      icon: next,
     },
   ];
 
@@ -66,15 +76,15 @@ const MySkills: FC<MySkillsProps> = ({}) => {
       <div className="flex w-full flex-col md:flex-row items-center justify-center gap-4">
         <PortfolioCard
           color="warning"
-          title="Full Stack Developer"
-          desc="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi saepe vero ullam veritatis non autem beatae pariatur,"
+          title="Frontend Development"
+          desc="HTML, CSS, JavaScript, React"
           image={Men}
           no={1}
         />
         <PortfolioCard
           color="danger"
-          title="Full Stack Developer"
-          desc="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nisi saepe vero ullam veritatis non autem beatae pariatur,"
+          title="Backend Development"
+          desc="Node.js, Java, C#, MySQL, Postgres MongoDB"
           image={Success}
           no={2}
         />

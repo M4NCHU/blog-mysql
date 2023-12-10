@@ -11,6 +11,8 @@ import WEB from "@/assets/web.png";
 import TailWind from "@/assets/tailwind.png";
 import { FaFacebook, FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { Balancer } from "react-wrap-balancer";
+import Link from "next/link";
+
 interface LandingPageProps {}
 
 const LandingPage: FC<LandingPageProps> = ({}) => {
@@ -22,16 +24,19 @@ const LandingPage: FC<LandingPageProps> = ({}) => {
     >
       <div className="portfolio-landing__desc w-full lg:w-3/5 flex flex-col px-2 pb-8 md:mb-0 lg:px-6 gap-6 border-b-2 py-10 border-r-0 lg:border-b-0 lg:border-r-2 border-default-100 h-full justify-center items-center relative ">
         <div className="absolute z-50 -bottom-2 px-4 right-auto lg:bottom-auto lg:-right-[0.7rem] lg:px-0 lg:py-4 bg-background flex flex-row lg:flex-col gap-6  text-xl">
-          <a href="">
+          <a href="https://github.com/M4NCHU" target="_blank">
             <FaGithub />
           </a>
-          <a href="">
+          <a
+            href="https://www.linkedin.com/in/maciej-szwast-189684293/"
+            target="_blank"
+          >
             <FaLinkedin />
           </a>
-          <a href="">
+          <a href="https://www.facebook.com/maciej.szwast" target="_blank">
             <FaFacebook />
           </a>
-          <a href="">
+          <a href="https://twitter.com/MaciejSzwast" target="_blank">
             <FaTwitter />
           </a>
         </div>
@@ -47,26 +52,27 @@ const LandingPage: FC<LandingPageProps> = ({}) => {
           <div className=" text-sm md:text-base">
             <p>
               <Balancer>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Tenetur quibusdam, sint expedita temporibus vero a nostrum,
-                optio autem velit nulla error id odio deleniti officiis, ullam
-                eaque omnis in quod.
+                I am an ambitious and creative web developer seeking
+                opportunities to gain experience and professional growth in the
+                field of web development. I have a strong foundation in web
+                programming and am eager to learn and work on various projects.
               </Balancer>
             </p>
           </div>
           <div className="flex gap-4  w-full items-center">
-            <Button
-              className=" rounded-full w-full sm:w-auto text-sm text-white lg:text-base bg-gradient-to-br from-blue-500 to-purple-500 hover:from-purple-500 hover:to-blue-500 transition-all duration-500 ease-in-out "
-              size="lg"
+            <a
+              href="../../assets/CV_Maciej_Szwast.pdf"
+              className=" rounded-full p-4 w-full sm:w-auto text-sm text-white lg:text-base bg-gradient-to-br from-blue-500 to-purple-500 hover:from-purple-500 hover:to-blue-500 transition-all duration-500 ease-in-out "
+              download
             >
               Download CV
-            </Button>
-            <Button
-              className=" rounded-full w-full sm:w-auto  text-sm lg:text-base hover:bg-default-100 transition-all duration-500 ease-in-out "
-              size="lg"
+            </a>
+            <Link
+              href="/resume"
+              className=" rounded-full bg-default-200 p-4 w-full sm:w-auto  text-sm lg:text-base hover:bg-default-100 transition-all duration-500 ease-in-out "
             >
               About me
-            </Button>
+            </Link>
           </div>
         </div>
       </div>

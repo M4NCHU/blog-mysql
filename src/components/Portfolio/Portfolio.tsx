@@ -55,7 +55,7 @@ const Portfolio: FC<PortfolioProps> = ({}) => {
         <LandingPage />
         <MySkills />
         <RecentProjects />
-        <Contact />
+        {/* <Contact /> */}
       </div>
 
       <div className="fixed hidden sm:flex right-2 h-full w-6 text-center  flex-col items-center justify-center text-xl gap-4 ">
